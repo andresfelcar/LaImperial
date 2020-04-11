@@ -251,3 +251,7 @@ margin: 0;
     background: rgb(4, 64, 112);
     z-index: 9000;
 }
+#hh{
+    color: white;
+    text-align: center;
+}

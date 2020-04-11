@@ -19,15 +19,14 @@ if (!empty($_POST['email']) && !empty($_POST['pwd'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Iniciar Sesión</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 	<link href="resource/css/style.css" rel="stylesheet">
-	<link href="resource/css/index_php.css" rel="stylesheet">
+	<link href="resource/css/iniciar_sesion.css" rel="stylesheet">
 </head>
 
 <body>
@@ -38,7 +37,6 @@ if (!empty($_POST['email']) && !empty($_POST['pwd'])) {
 	</div>
 	<div class="row">
 		<div class="col-xs-6">
-
 			<div class="login-form">
 				<form action="" method="post">
 					<h2 class="text-center">Iniciar Sesión</h2>
@@ -67,7 +65,7 @@ if (!empty($_POST['email']) && !empty($_POST['pwd'])) {
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="js/invoice.js"></script>
+	<script src="resource/js/invoice.js"></script>
 </body>
 
 </html>
