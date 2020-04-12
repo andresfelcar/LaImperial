@@ -36,6 +36,12 @@ class Invoices_Controller
 
     public function Insert($array)
     {
+        $conexion = Conexion::connection();
+        $sql = "INSERT INTO Facturas(IdCliente,Fecha,IdUsuario,Total) VALUES(?,?,?,?)";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("i,s,i,d", $array[0], $array[1],$array[2],$array[3]);
+        $stmt->execute();
+        return $stmt;
     }
     public function Update($array)
     {

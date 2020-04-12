@@ -94,7 +94,7 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
                         </div>
                         <br>
                         <div class="form-group">
-                            <input type="hidden" value="<?php echo $_SESSION['userid']; ?>" class="form-control" name="userId">
+                            <input type="hidden" value="<?php echo $resultado[0]; ?>" class="form-control" name="userId">
                             <input data-loading-text="Guardando factura..." type="submit" name="invoice_btn" value="Guardar Factura" class="btn btn-success submit_btn invoice-save-btm">
                         </div>
                     </div>
