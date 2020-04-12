@@ -1,13 +1,17 @@
 <?php
+@session_start();
+require_once "controller/Controller.php";
 
-session_start();
-//validacion de inicio de sesion
-include 'controller/Invoice.php';
+$resultado = $_SESSION['user'];
+if ($resultado == null) {
+    header("Location:Login.php");
+}
+
 $invoice = new Invoice();
 $invoice->checkLoggedIn();
 if (!empty($_POST['companyName']) && $_POST['companyName'] && !empty($_POST['invoiceId']) && $_POST['invoiceId']) {
 	$invoice->updateInvoice($_POST);
-	header("Location:invoice_list.php");
+	header("Location:View_Invoice.php");
 }
 if (!empty($_GET['update_id']) && $_GET['update_id']) {
 	$invoiceValues = $invoice->getInvoice($_GET['update_id']);

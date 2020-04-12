@@ -1,4 +1,13 @@
-Validacion de sesion por seguridad
+<?php
+@session_start();
+require_once "controller/Controller.php";
+
+$resultado = $_SESSION['user'];
+if ($resultado == null) {
+    header("Location:Login.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,7 +23,7 @@ Validacion de sesion por seguridad
             <a href="#" id="show1">Registrar Producto</a>
             <a href="#" id="show2">Registrar Vendedor</a>
             <a href="#" id="show3">Ingresar Disponibilidad</a>
-            <a href="invoice_list.php">Facturas</a>
+            <a href="View_Invoice.php">Facturas</a>
             <a href="index.html">Cerrar Sesion</a>
         </div>
     </div>
@@ -114,6 +123,6 @@ Validacion de sesion por seguridad
             </div>
         </div>
     </div>
-    <script src="js/jquery.js"></script>
+    <script src="resource/js/jquery.js"></script>
 </body>
 </html>

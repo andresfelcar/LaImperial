@@ -1,8 +1,14 @@
 <?php
-session_start();
-//validacion de inicio de sesion
-include 'controller/Invoice.php';
+@session_start();
+require_once "controller/Controller.php";
+
+$resultado = $_SESSION['user'];
+if ($resultado == null) {
+    header("Location:Login.php");
+}
+
 $invoice = new Invoice();
+
 $invoice->checkLoggedIn();
 if(!empty($_GET['invoice_id']) && $_GET['invoice_id']) {
 	echo $_GET['invoice_id'];

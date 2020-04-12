@@ -1,7 +1,8 @@
 <?php
+@session_start();
 require_once "controller/Controller.php";
 
-@session_start();
+
 $loginError = "";
 if (!empty($_POST['email']) && !empty($_POST['password'])) {
 
@@ -10,12 +11,12 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
 	$array = [];
 	array_push($array, $_POST['email'], $_POST['password']);
 
-	$_SESSION['user'] = $login->Login($array, 0);
+	$_SESSION['user'] = $login->Login(0,$array);
 
 	$resultado = $_SESSION['user'];
 	
 	if ($resultado != null) {
-		header("Location:invoice_list.php");
+		header("Location:View_Invoice.php");
 	} else {
 		$_SESSION['user']=null;
 		$loginError = "Usuario o contraseña incorrectos";

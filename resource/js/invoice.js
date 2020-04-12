@@ -50,17 +50,15 @@
 		}	
 	});	
 	$(document).on('click', '.deleteInvoice', function(){
-		var id = $(this).attr("id");
+		var id = 7;
+		id = $(this).attr("id");
 		if(confirm("Are you sure you want to remove this?")){
 			$.ajax({
-				url:"action.php",
+				url:"Delete_Invoice.php",
 				method:"POST",
-				dataType: "json",
-				data:{id:id, action:'delete_invoice'},				
+				data:'id=' +id,				
 				success:function(response) {
-					if(response.status == 1) {
-						$('#'+id).closest("tr").remove();
-					}
+					$('#'+id).closest("tr").remove();					
 				}
 			});
 		} else {
@@ -68,6 +66,13 @@
 		}
 	});
 });	
+
+
+
+
+
+
+
 function calculateTotal(){
 	var totalAmount = 0; 
 	$("[id^='price_']").each(function() {

@@ -1,6 +1,10 @@
 <?php
 @session_start();
 $resultado = $_SESSION['user'];
+if ($resultado == null) {
+    header("Location:Login.php");
+}
+
 ?>
 <!--validacion de inicio de sesion-->
 <ul class="nav navbar-nav">
@@ -8,11 +12,10 @@ $resultado = $_SESSION['user'];
 	<button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Factura
 	<span class="caret"></span></button>
 	<ul class="dropdown-menu">
-		<li><a href="invoice_list.php">Lista de Facturas</a></li>
-		<li><a href="create_invoice.php">Crear Factura</a></li>				  
+		<li><a href="View_Invoice.php">Lista de Facturas</a></li>
+		<li><a href="Create_Invoice.php">Crear Factura</a></li>				  
 	</ul>
 </li>
-
 	<li class="dropdown">
 		<button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Conectado: <?php echo $resultado[1]; ?>
 		<span class="caret"></span></button>

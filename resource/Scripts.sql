@@ -1,0 +1,4 @@
+Select fa.IdFactura, us.Nombre1, fa.Fecha , de.Cantidad, pro.Nombre  from facturas fa inner join detallefacturas de inner join productos pro inner join usuarios us;
+Select fa.IdFactura, us.Nombre1, fa.Fecha, cl.Nombre1 from facturas fa inner join detallefacturas de inner join clientes cl inner join usuarios us
+Select fa.IdFactura,fa.Fecha,cl.Nombre1,us.Nombre1 from facturas fa INNER JOIN clientes cl INNER JOIN usuarios us where fa.IdCliente = cl.IdCliente and fa.IdUsuario= us.IdUsuario 
+Select fa.IdFactura,fa.Fecha,cl.Nombre1, fa.Total from facturas fa INNER JOIN clientes cl INNER JOIN usuarios us where fa.IdCliente = cl.IdCliente and fa.IdUsuario= us.IdUsuario

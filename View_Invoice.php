@@ -1,6 +1,14 @@
 <?php
-session_start();
+@session_start();
+require_once "controller/Controller.php";
 
+$resultado = $_SESSION['user'];
+if ($resultado == null) {
+    header("Location:Login.php");
+}
+
+$invoice =  new Controller();
+$result = $invoice->Invoices(0);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,10 +16,10 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Facturacion</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="resource/css/style.css">
+    <link href="resource/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -20,7 +28,7 @@ session_start();
     </div>
     <div class="container">
         <h2 class="title">Sistema de Facturacion el Imperial</h2>
-        <?php include('menu.php'); ?>
+        <?php include('Menu.php'); ?>
         <table id="data-table" class="table table-condensed table-striped">
             <thead>
                 <tr>
@@ -34,22 +42,17 @@ session_start();
                 </tr>
             </thead>
             <?php
-            
-            $invoiceList = $invoice->getInvoiceList();
-            foreach ($invoiceList as $invoiceDetails) {
-                $invoiceDate = date("d/M/Y, H:i:s", strtotime($invoiceDetails["order_date"]));
-                echo '<tr>
-                    <td>' . $invoiceDetails["order_id"] . '</td>
-                    <td>' . $invoiceDate . '</td>
-                    <td>' . $invoiceDetails["order_receiver_name"] . '</td>
-                    <td>' . $invoiceDetails["order_total_before_tax"] . '</td>
+            while($resultado = $result->fetch_row()):?>
+               <tr>
+                    <td><?php echo $resultado[0]?></td>
+                    <td><?php echo $resultado[1]?></td>
+                    <td><?php echo $resultado[2]?></td>
+                    <td><?php echo $resultado[3]?></td>
                     <td><a href="print_invoice.php?invoice_id=' . $invoiceDetails["order_id"] . '" title="Imprimir Factura"><div class="btn btn-primary"><span class="glyphicon glyphicon-print"></span></div></a></td>
                     <td><a href="edit_invoice.php?update_id=' . $invoiceDetails["order_id"] . '"  title="Editar Factura"><div class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></div></a></td>
-                    <td><a href="#" id="' . $invoiceDetails["order_id"] . '" class="deleteInvoice"  title="Borrar Factura"><div class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></div></a></td>
+                    <td><a href="#" id="<?php echo $resultado[0]?>" class="deleteInvoice"  title="Borrar Factura"><div class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></div></a></td>
                 </tr>
-                ';
-            }
-            ?>
+            <?php endwhile;?>    
         </table>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

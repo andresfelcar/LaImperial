@@ -1,14 +1,16 @@
 <?php
-session_start();
-//validacion de inicio de sesion
-include 'controller/Invoice.php';
+@session_start();
+require_once "controller/Controller.php";
 
-$invoice = new Invoice();
+$resultado = $_SESSION['user'];
+if ($resultado == null) {
+    header("Location:Login.php");
+}
 
-$invoice->checkLoggedIn();
+//$invoice->checkLoggedIn();
 if (!empty($_POST['companyName']) && $_POST['companyName']) {
     $invoice->saveInvoice($_POST);
-    header("Location:invoice_list.php");
+    header("Location:View_Invoice.php");
 }
 ?>
 
@@ -41,10 +43,10 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                         <h3>De,</h3>
-                        <?php echo $_SESSION['user']; ?><br>
-                        <?php echo $_SESSION['address']; ?><br>
-                        <?php echo $_SESSION['mobile']; ?><br>
-                        <?php echo $_SESSION['email']; ?><br>
+                        <?php echo $resultado[1]; ?><br>
+                        <?php echo $resultado[2]; ?><br>
+                        <?php echo $resultado[3]; ?><br>
+                        <?php echo $resultado[4]; ?><br>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
                         <h3>Para,</h3>

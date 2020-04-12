@@ -6,20 +6,19 @@ require_once "Sellers_Controller.php";
 
 class Controller{
 
-    public function Login($array,$option){
-        return Login_Controller::Main($array,$option);
+    public function Login($option,$array = []){
+        return Login_Controller::Main($option,$array);
     }
 
-    public function Products($array,$option){
-        return Products_Controller::Main($array,$option);
+    public function Products($option,$array = []){
+        return Products_Controller::Main($option,$array);
     }
 
-    public function Invoices($array,$option){
-        return Invoices_Controller::Main($array,$option);
+    public function Invoices($option,$array = []){
+        return Invoices_Controller::Main($option,$array);
     }
 
-    public function Sellers($array,$option){
-        return Sellers_Controller::Main($array,$option);
+    public function Sellers($option,$array = []){
+        return Sellers_Controller::Main($option,$array);
     }
 }
-?>
