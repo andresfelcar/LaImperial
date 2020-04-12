@@ -41,6 +41,7 @@ class Login_Controller
     public function Insert()
     {
     }
+    
     public function Update()
     {
     }

@@ -37,32 +37,41 @@ class Invoices_Controller
     public function Insert($array)
     {
         $conexion = Conexion::connection();
-        $sql = "INSERT INTO Facturas(IdCliente,Fecha,IdUsuario,Total) VALUES(?,?,?,?)";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bind_param("i,s,i,d", $array[0], $array[1],$array[2],$array[3]);
+        $date = null;
+        $stmt = $conexion->prepare("INSERT INTO Facturas(IdCliente,Fecha,IdUsuario,Total) VALUES(?,null,?,?)");
+        $stmt->bind_param("iid", $array['companyName'], $array['userId'], $array['subTotal']);
         $stmt->execute();
+        $id = $conexion->query("SELECT @@identity AS IdFactura");
+        $id=$id->fetch_row();
+
+        for ($i = 0; $i < count($array['productCode']); $i++) {
+            $stmt = $conexion->prepare("INSERT INTO detalleFacturas(IdFactura,IdProducto,Cantidad) VALUES (?,?,?)");
+            $stmt->bind_param("iii", $id[0],$array['productCode'][$i],$array['quantity'][$i]);
+            $stmt->execute();
+        }
         return $stmt;
     }
+
     public function Update($array)
     {
     }
 
-    public function Delete($array,$count=0)
+    public function Delete($array, $count = 0)
     {
-        $conexion = Conexion::connection();  
+        $conexion = Conexion::connection();
         $sql = "DELETE from detallefacturas WHERE IdFactura = ? ";
-        if($count==1){  
+        if ($count == 1) {
             $sql = "DELETE from facturas WHERE IdFactura = ? ";
-        }  
+        }
         $stmt = $conexion->prepare($sql);
         $stmt->bind_param("i", $array[0]);
         $stmt->execute();
 
-        if($count==0){
+        if ($count == 0) {
             ++$count;
-            $object= new Invoices_Controller();
-            $object->Delete($array,$count);
-        } 
+            $object = new Invoices_Controller();
+            $object->Delete($array, $count);
+        }
         return $stmt;
     }
 }

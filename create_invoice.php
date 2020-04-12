@@ -7,10 +7,11 @@ if ($resultado == null) {
     header("Location:Login.php");
 }
 
-//$invoice->checkLoggedIn();
 if (!empty($_POST['companyName']) && $_POST['companyName']) {
-    $invoice->saveInvoice($_POST);
-    header("Location:View_Invoice.php");
+    $invoice =  new Controller();
+    echo "hola";
+    $invoice->Invoices(1,$_POST);
+    //header("Location:View_Invoice.php");
 }
 ?>
 
@@ -22,13 +23,13 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facturación</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-	<link href="resource/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link href="resource/css/style.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="naveg">
-    <h2 id="hh">Crear Factura</h2>
+        <h2 id="hh">Crear Factura</h2>
     </div>
     <div class="container content-invoice">
         <form action="" id="invoice-form" method="post" class="invoice-form" role="form" novalidate>
@@ -51,7 +52,7 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
                         <h3>Para,</h3>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="companyName" id="companyName" placeholder="Nombre de Empresa" autocomplete="off">
+                            <input type="number" class="form-control" name="companyName" id="companyName" placeholder="Nombre de Empresa" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <textarea class="form-control" rows="3" name="address" id="address" placeholder="Su dirección"></textarea>
@@ -116,8 +117,8 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
         </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="resource/js/invoice.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="resource/js/invoice.js"></script>
 </body>
 
 </html>
