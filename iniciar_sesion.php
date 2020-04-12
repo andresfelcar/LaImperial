@@ -1,24 +1,33 @@
 <?php
+require_once "controller/Controller.php";
+
 @session_start();
-$loginError = '';
-if (!empty($_POST['email']) && !empty($_POST['pwd'])) {
-	include 'controller/Invoice.php';
-	$invoice = new Invoice();
-	$user = $invoice->loginUsers($_POST['email'], $_POST['pwd']);
-	if (!empty($user)) {
-		$_SESSION['user'] = $user[0]['first_name'] . "" . $user[0]['last_name'];
-		$_SESSION['userid'] = $user[0]['id'];
-		$_SESSION['email'] = $user[0]['email'];
-		$_SESSION['address'] = $user[0]['address'];
-		$_SESSION['mobile'] = $user[0]['mobile'];
+$loginError = "";
+if (!empty($_POST['email']) && !empty($_POST['password'])) {
+
+	$login = new Controller();
+
+	$array = [];
+	array_push($array, $_POST['email'], $_POST['password']);
+
+	$_SESSION['user'] = $login->Login($array, 0);
+
+	$resultado = $_SESSION['user'];
+	
+	if ($resultado != null) {
 		header("Location:invoice_list.php");
 	} else {
-		$loginError = "Usuario o Contraseña Incorrecta";
+		$_SESSION['user']=null;
+		$loginError = "Usuario o contraseña incorrectos";
 	}
+} else {
+	$loginError = "Ingrese los datos";
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,7 +58,7 @@ if (!empty($_POST['email']) && !empty($_POST['pwd'])) {
 						<input name="email" id="email" type="email" class="form-control" placeholder="Correo" autofocus required>
 					</div>
 					<div class="form-group">
-						<input type="password" class="form-control" name="pwd" placeholder="Contraseña" required>
+						<input type="password" class="form-control" name="password" placeholder="Contraseña" required>
 					</div>
 					<div class="form-group">
 						<button type="submit" name="login" class="btn btn-primary" style="width: 100%;"> Acceder </button>

@@ -1,3 +1,8 @@
+<?php
+@session_start();
+$resultado = $_SESSION['user'];
+?>
+<!--validacion de inicio de sesion-->
 <ul class="nav navbar-nav">
 <li class="dropdown">
 	<button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Factura
@@ -7,16 +12,14 @@
 		<li><a href="create_invoice.php">Crear Factura</a></li>				  
 	</ul>
 </li>
-<?php 
-if($_SESSION['userid']) { ?>
+
 	<li class="dropdown">
-		<button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Conectado: <?php echo $_SESSION['user']; ?>
+		<button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Conectado: <?php echo $resultado[1]; ?>
 		<span class="caret"></span></button>
 		<ul class="dropdown-menu">
 			<li><a href="#">Mi Cuenta</a></li>
 			<li><a href="action.php?action=logout">Salir</a></li>		  
 		</ul>
 	</li>
-<?php } ?>
 </ul>
 <br /><br /><br /><br />

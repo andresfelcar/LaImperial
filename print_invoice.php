@@ -1,5 +1,6 @@
 <?php
 session_start();
+//validacion de inicio de sesion
 include 'controller/Invoice.php';
 $invoice = new Invoice();
 $invoice->checkLoggedIn();
