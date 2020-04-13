@@ -1,28 +1,24 @@
 <?php
-require_once "model/Conexion.php";
-
-class Products_Controller
-{
-
+class Clients_Controller{
     private function __construct()
     {
     }
 
     public static function Main($option, $array = [])
     {
-        $products = new Products_Controller();
+        $login = new Clients_Controller();
         switch ($option) {
             case 0:
-                $result = $products->Consult();
+                $result = $login->Consult();
                 break;
             case 1:
-                $result = $products->Insert();
+                $result = $login->Insert();
                 break;
             case 2:
-                $result = $products->Update();
+                $result = $login->Update();
                 break;
             case 3:
-                $result = $products->Delete($array);
+                $result = $login->Delete();
                 break;
         }
         return $result;
@@ -31,19 +27,20 @@ class Products_Controller
     public function Consult()
     {
         $conexion = Conexion::connection();
-        $sql = "SELECT IdProducto,Nombre from Productos";
+        $sql = "SELECT IdCliente,Nombre1 from Clientes";
         return $conexion->query($sql);
     }
 
     public function Insert()
     {
     }
-
+    
     public function Update()
     {
     }
 
-    public function Delete($array)
+    public function Delete()
     {
     }
 }
+?>

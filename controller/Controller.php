@@ -3,6 +3,8 @@ require_once "Invoices_Controller.php";
 require_once "Login_Controller.php";
 require_once "Products_Controller.php";
 require_once "Sellers_Controller.php";
+require_once "Clients_Controller.php";
+
 
 class Controller{
 
@@ -20,5 +22,8 @@ class Controller{
 
     public function Sellers($option,$array = []){
         return Sellers_Controller::Main($option,$array);
+    }
+    public function Clients($option,$array = []){
+        return Clients_Controller::Main($option,$array);
     }
 }

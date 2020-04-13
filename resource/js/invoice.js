@@ -1,3 +1,19 @@
+window.onload=Consult;
+var global;
+function Consult() {
+	name="hola"
+	$.ajax({
+	  type:"POST",
+	  data:"table=" + name,
+	  url: "Select_Products.php",
+	  dataType: "json",
+	  success:function(r){
+		console.log(r);
+		global = r;
+	  }
+	});
+	return global;
+  }
  $(document).ready(function(){
 	$(document).on('click', '#checkAll', function() {          	
 		$(".itemRow").prop("checked", this.checked);
@@ -12,10 +28,16 @@
 	var count = $(".itemRow").length;
 	$(document).on('click', '#addRows', function() { 
 		count++;
+		console.log(global);
+		var datos;
+		for(i=1;i<=global.length;i++){
+			items=global[i-1];
+			datos+='<option value="'+items[0]+'">'+items[1]+'</option>';
+		}
 		var htmlRows = '';
 		htmlRows += '<tr>';
 		htmlRows += '<td><input class="itemRow" type="checkbox"></td>';          
-		htmlRows += '<td><input type="text" name="productCode[]" id="productCode_'+count+'" class="form-control" autocomplete="off"></td>';          
+		htmlRows += '<td><select name="productCode[]" id="productCode_'+count+'" class="form-control"><option selected>Seleccione alguno</option>'+datos+'</select></td>' ;         
 		htmlRows += '<td><input type="text" name="productName[]" id="productName_'+count+'" class="form-control" autocomplete="off"></td>';	
 		htmlRows += '<td><input type="number" name="quantity[]" id="quantity_'+count+'" class="form-control quantity" autocomplete="off"></td>';   		
 		htmlRows += '<td><input type="number" name="price[]" id="price_'+count+'" class="form-control price" autocomplete="off"></td>';		 
@@ -66,8 +88,6 @@
 		}
 	});
 });	
-
-
 
 
 

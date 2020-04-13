@@ -1,0 +1,16 @@
+<?php
+@session_start();
+require_once "controller/Controller.php";
+
+$resultado = $_SESSION['user'];
+if ($resultado == null) {
+    header("Location:Login.php");
+}
+
+if(!empty($_POST['table'])){
+    $invoice =  new Controller();
+    $response= $invoice->Products(0);
+    $response= $response->fetch_all();
+    echo json_encode($response);
+}
+?>

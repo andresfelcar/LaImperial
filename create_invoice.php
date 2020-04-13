@@ -6,10 +6,9 @@ $resultado = $_SESSION['user'];
 if ($resultado == null) {
     header("Location:Login.php");
 }
-
+$invoice =  new Controller();
 if (!empty($_POST['companyName']) && $_POST['companyName']) {
-    $invoice =  new Controller();
-    $invoice->Invoices(1,$_POST);
+    $invoice->Invoices(1, $_POST);
     header("Location:View_Invoice.php");
 }
 ?>
@@ -51,13 +50,22 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
                         <h3>Para,</h3>
                         <div class="form-group">
-                            <input type="number" class="form-control" name="companyName" id="companyName" placeholder="Nombre de Empresa" autocomplete="off">
+                            <label for="inputState">Nombre del Cliente</label>
+                            <select name="companyName" id="companyName" placeholder="Nombre de Empresa" class="form-control">
+                                <option selected>Seleccione alguno</option>
+                                <?php
+                                $result = $invoice->Clients(0);
+                                while ($items = $result->fetch_row()) : ?>
+                                    <option value="<?php echo $items[0]; ?>"><?php echo $items[1]; ?></option>
+                                <?php endwhile; ?>
+                            </select>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <textarea class="form-control" rows="3" name="address" id="address" placeholder="Su dirección"></textarea>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
+                <br>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <table class="table table-bordered table-hover" id="invoiceItem">
@@ -71,8 +79,18 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
                             </tr>
                             <tr>
                                 <td><input class="itemRow" type="checkbox"></td>
-                                <td><input type="text" name="productCode[]" id="productCode_1" class="form-control" autocomplete="off"></td>
                                 <td><input type="text" name="productName[]" id="productName_1" class="form-control" autocomplete="off"></td>
+                                <td> 
+                                    <select nname="productCode[]" id="productCode_1" class="form-control">
+                                        <option selected>Seleccione alguno</option>
+                                        <?php
+                                        $result = $invoice->Products(0);
+                                        while ($items = $result->fetch_row()) : ?>
+                                            <option value="<?php echo $items[0]; ?>"><?php echo $items[1]; ?></option>
+                                        <?php endwhile; ?>
+                                    </select>
+                                    <!--<input type="text" name="productCode[]" id="productCode_1" class="form-control" autocomplete="off">-->
+                                </td>
                                 <td><input type="number" name="quantity[]" id="quantity_1" class="form-control quantity" autocomplete="off"></td>
                                 <td><input type="number" name="price[]" id="price_1" class="form-control price" autocomplete="off"></td>
                                 <td><input type="number" name="total[]" id="total_1" class="form-control total" autocomplete="off" readonly="readonly"></td>
