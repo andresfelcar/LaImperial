@@ -8,9 +8,11 @@ if ($resultado == null) {
 }
 $invoice = new Controller();
 if (!empty($_GET['update_id']) && $_GET['update_id']) {
+
+	
+
 	$invoiceValues = $invoice->Invoices(0, $_GET['update_id']);
-	$dates = $invoiceValues[0]->fetch_row();
-	$invoiceItems = $invoiceValues[1]->fetch_row();
+	$itemsF_C=$invoiceValues[0]->fetch_row();
 }
 ?>
 
@@ -58,7 +60,7 @@ if (!empty($_GET['update_id']) && $_GET['update_id']) {
 
 								$result = $invoice->Clients(0);
 								while ($items = $result->fetch_row()) : ?>
-									<option <?php if ($items[1] == $dates[3]) {
+									<option <?php if ($items[1] == $itemsF_C[3]) {
 												echo "selected";
 											} ?> value="<?php echo $items[0]; ?>"><?php echo $items[1]; ?></option>
 								<?php endwhile; ?>
@@ -111,7 +113,7 @@ if (!empty($_GET['update_id']) && $_GET['update_id']) {
 						<br>
 						<div class="form-group">
 							<input type="hidden" value="<?php echo $response[0]; ?>" class="form-control" name="userId">
-							<input type="hidden" value="<?php echo $dates[0]; ?>" class="form-control" name="invoiceId" id="invoiceId">
+							<input type="hidden" value="<?php echo $itemsF_C[0]; ?>" class="form-control" name="invoiceId" id="invoiceId">
 							<input data-loading-text="Updating Invoice..." type="submit" name="invoice_btn" value="Save Invoice" class="btn btn-success submit_btn invoice-save-btm">
 						</div>
 
@@ -122,7 +124,7 @@ if (!empty($_GET['update_id']) && $_GET['update_id']) {
 								<label>Subtotal: &nbsp;</label>
 								<div class="input-group">
 									<div class="input-group-addon currency">$</div>
-									<input value="<?php echo $dates[2]; ?>" type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">
+									<input value="<?php echo $itemsF_C[2]; ?>" type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">
 								</div>
 							</div>
 						</span>

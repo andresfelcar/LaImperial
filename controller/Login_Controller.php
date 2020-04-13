@@ -38,7 +38,7 @@ class Login_Controller
         $stmt->bind_param("ss", $array[0], $array[1]);
 
         $stmt->execute();
-        
+
         $result = $stmt->get_result();
         return $result->fetch_row();
     }
