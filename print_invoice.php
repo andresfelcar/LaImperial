@@ -2,42 +2,19 @@
 @session_start();
 require_once "controller/Controller.php";
 
-$resultado = $_SESSION['user'];
-if ($resultado == null) {
+$result = $_SESSION['user'];
+if ($result == null) {
     header("Location:Login.php");
 }
 
 $invoice =  new Controller();
 
 if(!empty($_GET['invoice_id']) && $_GET['invoice_id']) {
-	$var =$_GET['invoice_id'];
-	echo $var;
+	$invoiceValues = $invoice->Invoices(0,$_GET['invoice_id']);	
 
-	$invoiceValues = $invoice->Invoices(0,$_GET['invoice_id']);		
-	$invoiceItems = $invoice->Invoices(0,$_GET['invoice_id']);		
+	$itemsF_C=$invoiceValues[0]->fetch_row();
 }
-/** nombre
- * direccion del cliente
- * 
- * ide de factura
- * fecha
- * id del producto
- * nombre
- * cantidad
- * precio
- * precio por cantidad
- * total***
- * SELECT * from facturas where IdFactura= 7
- * SELECT * from clientes where IdCliente= 1
- * 
- * SELECT * from detallefacturas where IdFactura= 7
- * SELECT * from productos where IdProducto= 2
- * 
- * 
- */
-
-/*
-$invoiceDate = date("d/M/Y, H:i:s", strtotime($invoiceValues['order_date']));
+$invoiceDate = date("d/M/Y, H:i:s", strtotime($itemsF_C[1]));
 $output = '';
 $output .= '<table width="100%" border="1" cellpadding="5" cellspacing="0">
 	<tr>
@@ -50,11 +27,11 @@ $output .= '<table width="100%" border="1" cellpadding="5" cellspacing="0">
 	<td width="65%">
 	Para,<br />
 	<b>RECEPTOR (FACTURA A)</b><br />
-	Nombres : '.$invoiceValues['order_receiver_name'].'<br /> 
-	Dirección de facturación : '.$invoiceValues['order_receiver_address'].'<br />
+	Nombres : '.$itemsF_C[3].'<br /> 
+	Dirección de facturación : '.$itemsF_C[4].'<br />
 	</td>
 	<td width="35%">         
-	Factura No. : '.$invoiceValues['order_id'].'<br />
+	Factura No. : '.$itemsF_C[0].'<br />
 	Factura Fecha : '.$invoiceDate.'<br />
 	</td>
 	</tr>
@@ -69,23 +46,24 @@ $output .= '<table width="100%" border="1" cellpadding="5" cellspacing="0">
 	<th align="left">Precio</th>
 	<th align="left">Actual Amt.</th> 
 	</tr>';
-$count = 0;   
-foreach($invoiceItems as $invoiceItem){
+$count = 0;
+while($itemsD_P=$invoiceValues[1]->fetch_row()){   
+
 	$count++;
 	$output .= '
 	<tr>
 	<td align="left">'.$count.'</td>
-	<td align="left">'.$invoiceItem["item_code"].'</td>
-	<td align="left">'.$invoiceItem["item_name"].'</td>
-	<td align="left">'.$invoiceItem["order_item_quantity"].'</td>
-	<td align="left">'.$invoiceItem["order_item_price"].'</td>
-	<td align="left">'.$invoiceItem["order_item_final_amount"].'</td>   
+	<td align="left">'.$itemsD_P[0].'</td>
+	<td align="left">'.$itemsD_P[1].'</td>
+	<td align="left">'.$itemsD_P[2].'</td>
+	<td align="left">'.$itemsD_P[3].'</td>
+	<td align="left">'.$itemsD_P[2]*$itemsD_P[3].'</td>   
 	</tr>';
 }
 $output .= '
 	<tr>
 	<td align="right" colspan="5"><b>Total</b></td>
-	<td align="left"><b>'.$invoiceValues['order_total_before_tax'].'</b></td>
+	<td align="left"><b>'.$itemsF_C[2].'</b></td>
 	</tr>
 	
 	';
@@ -95,7 +73,7 @@ $output .= '
 	</tr>
 	</table>';
 // create pdf of invoice	
-$invoiceFileName = 'Invoice-'.$invoiceValues['order_id'].'.pdf';
+$invoiceFileName = 'Invoice-'.$itemsF_C[0].'.pdf';
 
 require_once 'dompdf/src/Autoloader.php';
 Dompdf\Autoloader::register();
@@ -105,5 +83,5 @@ $dompdf->loadHtml(html_entity_decode($output));
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
 $dompdf->stream($invoiceFileName, array("Attachment" => false));
-?>*/
+?>
    

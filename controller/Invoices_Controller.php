@@ -35,8 +35,14 @@ class Invoices_Controller
             return $conexion->query($sql);
         }
         $conexion = Conexion::connection();
-        $sql = "SELECT * from facturas where IdFactura= 7";
-        return $conexion->query($sql);
+        $id = $array;
+
+        $result1 = $conexion->query("Select fa.IdFactura,fa.Fecha,fa.Total,cl.Nombre1,cl.Direccion  from facturas fa INNER JOIN clientes cl where fa.IdCliente=cl.IdCliente AND fa.IdFactura='$id'");
+        $result2 = $conexion->query("Select pr.IdProducto, pr.Nombre,de.Cantidad, pr.Precio  from detallefacturas de INNER JOIN productos pr where de.IdProducto=pr.IdProducto and de.IdFactura='$id'");
+      
+        $array=[];
+        array_push($array,$result1,$result2);
+        return  $array;
     }
 
     public function Insert($array)
