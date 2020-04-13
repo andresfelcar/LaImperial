@@ -4,18 +4,12 @@ require_once "controller/Controller.php";
 
 $resultado = $_SESSION['user'];
 if ($resultado == null) {
-    header("Location:Login.php");
+	header("Location:Login.php");
 }
-
-$invoice = new Invoice();
-$invoice->checkLoggedIn();
-if (!empty($_POST['companyName']) && $_POST['companyName'] && !empty($_POST['invoiceId']) && $_POST['invoiceId']) {
-	$invoice->updateInvoice($_POST);
-	header("Location:View_Invoice.php");
-}
+$invoice = new Controller();
 if (!empty($_GET['update_id']) && $_GET['update_id']) {
-	$invoiceValues = $invoice->getInvoice($_GET['update_id']);
-	$invoiceItems = $invoice->getInvoiceItems($_GET['update_id']);
+	$invoiceValues = $invoice->Invoices(0, $_GET['update_id']);
+	$dates = $invoiceValues[0]->fetch_row();
 }
 ?>
 
@@ -32,16 +26,16 @@ if (!empty($_GET['update_id']) && $_GET['update_id']) {
 </head>
 
 <body>
-	
-<div class="naveg">
-<h2 id="hh">Bienvenido a la Imperial</h2>
-  </div>
+
+	<div class="naveg">
+		<h2 id="hh">Bienvenido a la Imperial</h2>
+	</div>
 	<div class="container content-invoice">
 		<form action="" id="invoice-form" method="post" class="invoice-form" role="form" novalidate>
 			<div class="load-animate animated fadeInUp">
 				<div class="row">
 					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-						
+
 						<?php include('menu.php'); ?>
 					</div>
 				</div>
@@ -49,15 +43,26 @@ if (!empty($_GET['update_id']) && $_GET['update_id']) {
 				<div class="row">
 					<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 						<h3>De,</h3>
-						<?php echo $_SESSION['user']; ?><br>
-						<?php echo $_SESSION['address']; ?><br>
-						<?php echo $_SESSION['mobile']; ?><br>
-						<?php echo $_SESSION['email']; ?><br>
+						<?php echo $resultado[1]; ?><br>
+						<?php echo $resultado[2]; ?><br>
+						<?php echo $resultado[3]; ?><br>
+						<?php echo $resultado[4]; ?><br>
 					</div>
 					<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
 						<h3>Para,</h3>
 						<div class="form-group">
-							<input value="<?php echo $invoiceValues['order_receiver_name']; ?>" type="text" class="form-control" name="companyName" id="companyName" placeholder="Nombre de Empresa" autocomplete="off">
+							<label for="inputState">Nombre del Cliente</label>
+							<select name="companyName" id="companyName" placeholder="Nombre de Empresa" class="form-control">
+								<option>Seleccione alguno</option>
+								<?php
+
+								$result = $invoice->Clients(0);
+								while ($items = $result->fetch_row()) : ?>
+									<option <?php if ($items[1] == $dates[3]) {
+												echo "selected";
+											} ?> value="<?php echo $items[0]; ?>"><?php echo $items[1]; ?></option>
+								<?php endwhile; ?>
+							</select>
 						</div>
 						<div class="form-group">
 							<textarea class="form-control" rows="3" name="address" id="address" placeholder="Su Dirección"><?php echo $invoiceValues['order_receiver_address']; ?></textarea>

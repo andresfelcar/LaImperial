@@ -11,7 +11,6 @@ $invoice =  new Controller();
 
 if(!empty($_GET['invoice_id']) && $_GET['invoice_id']) {
 	$invoiceValues = $invoice->Invoices(0,$_GET['invoice_id']);	
-
 	$itemsF_C=$invoiceValues[0]->fetch_row();
 }
 $invoiceDate = date("d/M/Y, H:i:s", strtotime($itemsF_C[1]));
