@@ -29,8 +29,13 @@ class Invoices_Controller
 
     public function Consult($array)
     {
+        if ($array==null) {
+            $conexion = Conexion::connection();
+            $sql = "Select fa.IdFactura,fa.Fecha,cl.Nombre1, fa.Total from facturas fa INNER JOIN clientes cl INNER JOIN usuarios us where fa.IdCliente = cl.IdCliente and fa.IdUsuario= us.IdUsuario ";
+            return $conexion->query($sql);
+        }
         $conexion = Conexion::connection();
-        $sql = "Select fa.IdFactura,fa.Fecha,cl.Nombre1, fa.Total from facturas fa INNER JOIN clientes cl INNER JOIN usuarios us where fa.IdCliente = cl.IdCliente and fa.IdUsuario= us.IdUsuario ";
+        $sql = "SELECT * from facturas where IdFactura= 7";
         return $conexion->query($sql);
     }
 
@@ -42,11 +47,11 @@ class Invoices_Controller
         $stmt->bind_param("iid", $array['companyName'], $array['userId'], $array['subTotal']);
         $stmt->execute();
         $id = $conexion->query("SELECT @@identity AS IdFactura");
-        $id=$id->fetch_row();
+        $id = $id->fetch_row();
 
         for ($i = 0; $i < count($array['productCode']); $i++) {
             $stmt = $conexion->prepare("INSERT INTO detalleFacturas(IdFactura,IdProducto,Cantidad) VALUES (?,?,?)");
-            $stmt->bind_param("iii", $id[0],$array['productCode'][$i],$array['quantity'][$i]);
+            $stmt->bind_param("iii", $id[0], $array['productCode'][$i], $array['quantity'][$i]);
             $stmt->execute();
         }
         return $stmt;

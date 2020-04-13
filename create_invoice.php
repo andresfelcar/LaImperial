@@ -9,9 +9,8 @@ if ($resultado == null) {
 
 if (!empty($_POST['companyName']) && $_POST['companyName']) {
     $invoice =  new Controller();
-    echo "hola";
     $invoice->Invoices(1,$_POST);
-    //header("Location:View_Invoice.php");
+    header("Location:View_Invoice.php");
 }
 ?>
 

@@ -7,14 +7,36 @@ if ($resultado == null) {
     header("Location:Login.php");
 }
 
-$invoice = new Invoice();
+$invoice =  new Controller();
 
-$invoice->checkLoggedIn();
 if(!empty($_GET['invoice_id']) && $_GET['invoice_id']) {
-	echo $_GET['invoice_id'];
-	$invoiceValues = $invoice->getInvoice($_GET['invoice_id']);		
-	$invoiceItems = $invoice->getInvoiceItems($_GET['invoice_id']);		
+	$var =$_GET['invoice_id'];
+	echo $var;
+
+	$invoiceValues = $invoice->Invoices(0,$_GET['invoice_id']);		
+	$invoiceItems = $invoice->Invoices(0,$_GET['invoice_id']);		
 }
+/** nombre
+ * direccion del cliente
+ * 
+ * ide de factura
+ * fecha
+ * id del producto
+ * nombre
+ * cantidad
+ * precio
+ * precio por cantidad
+ * total***
+ * SELECT * from facturas where IdFactura= 7
+ * SELECT * from clientes where IdCliente= 1
+ * 
+ * SELECT * from detallefacturas where IdFactura= 7
+ * SELECT * from productos where IdProducto= 2
+ * 
+ * 
+ */
+
+/*
 $invoiceDate = date("d/M/Y, H:i:s", strtotime($invoiceValues['order_date']));
 $output = '';
 $output .= '<table width="100%" border="1" cellpadding="5" cellspacing="0">
@@ -74,6 +96,7 @@ $output .= '
 	</table>';
 // create pdf of invoice	
 $invoiceFileName = 'Invoice-'.$invoiceValues['order_id'].'.pdf';
+
 require_once 'dompdf/src/Autoloader.php';
 Dompdf\Autoloader::register();
 use Dompdf\Dompdf;
@@ -82,5 +105,5 @@ $dompdf->loadHtml(html_entity_decode($output));
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
 $dompdf->stream($invoiceFileName, array("Attachment" => false));
-?>   
+?>*/
    

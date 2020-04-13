@@ -48,8 +48,8 @@ $result = $invoice->Invoices(0);
                     <td><?php echo $resultado[1]?></td>
                     <td><?php echo $resultado[2]?></td>
                     <td><?php echo $resultado[3]?></td>
-                    <td><a href="print_invoice.php?invoice_id=' . $invoiceDetails["order_id"] . '" title="Imprimir Factura"><div class="btn btn-primary"><span class="glyphicon glyphicon-print"></span></div></a></td>
-                    <td><a href="edit_invoice.php?update_id=' . $invoiceDetails["order_id"] . '"  title="Editar Factura"><div class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></div></a></td>
+                    <td><a href="Print_Invoice.php?invoice_id=<?php echo $resultado[0]?>" title="Imprimir Factura"><div class="btn btn-primary"><span class="glyphicon glyphicon-print"></span></div></a></td>
+                    <td><a href="Edit_Invoice.php?update_id=<?php echo $resultado[0]?>"  title="Editar Factura"><div class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></div></a></td>
                     <td><a href="#" id="<?php echo $resultado[0]?>" class="deleteInvoice"  title="Borrar Factura"><div class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></div></a></td>
                 </tr>
             <?php endwhile;?>    
