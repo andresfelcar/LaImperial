@@ -5,7 +5,6 @@ require_once "Products_Controller.php";
 require_once "Sellers_Controller.php";
 require_once "Clients_Controller.php";
 
-
 class Controller{
 
     public function Login($option,$array = []){

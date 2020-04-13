@@ -37,10 +37,12 @@ class Products_Controller
 
     public function Insert()
     {
+
     }
 
     public function Update()
     {
+        
     }
 
     public function Delete($array)

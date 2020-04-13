@@ -1,7 +1,7 @@
 <?php
 @session_start();
 require_once "controller/Controller.php";
-
+//validacion adm
 $resultado = $_SESSION['user'];
 if ($resultado == null || $resultado[10]==2) {
     header("Location:Login.php");

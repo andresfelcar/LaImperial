@@ -30,10 +30,15 @@ class Login_Controller
     public function Consult($array)
     {
         $conexion = Conexion::connection();
+
         $sql = "SELECT * from Usuarios WHERE Correo = ? AND Contrasena = MD5(?) ";
+
         $stmt = $conexion->prepare($sql);
+
         $stmt->bind_param("ss", $array[0], $array[1]);
+
         $stmt->execute();
+        
         $result = $stmt->get_result();
         return $result->fetch_row();
     }

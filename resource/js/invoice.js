@@ -36,9 +36,9 @@ function Consult() {
 		}
 		var htmlRows = '';
 		htmlRows += '<tr>';
-		htmlRows += '<td><input class="itemRow" type="checkbox"></td>';          
-		htmlRows += '<td><select name="productCode[]" id="productCode_'+count+'" class="form-control"><option selected>Seleccione alguno</option>'+datos+'</select></td>' ;         
-		htmlRows += '<td><input type="text" name="productName[]" id="productName_'+count+'" class="form-control" autocomplete="off"></td>';	
+		htmlRows += '<td><input class="itemRow" type="checkbox"></td>';
+		htmlRows += '<td><input type="text" name="productName[]" id="productName_'+count+'" class="form-control" autocomplete="off"></td>';	          
+		htmlRows += '<td><select name="productCode[]" id="productCode_'+count+'" class="form-control"><option selected>Seleccione alguno</option>'+datos+'</select></td>' ; 
 		htmlRows += '<td><input type="number" name="quantity[]" id="quantity_'+count+'" class="form-control quantity" autocomplete="off"></td>';   		
 		htmlRows += '<td><input type="number" name="price[]" id="price_'+count+'" class="form-control price" autocomplete="off"></td>';		 
 		htmlRows += '<td><input type="number" name="total[]" id="total_'+count+'" class="form-control total" autocomplete="off" readonly="readonly"></td>';          
