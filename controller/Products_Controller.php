@@ -1,6 +1,8 @@
 <?php
 require_once "model/Conexion.php";
 
+//$conexion = mysqli_connect('localhost', 'root', '', 'appWeb');
+
 class Products_Controller
 {
 
@@ -37,11 +39,23 @@ class Products_Controller
 
     public function Insert()
     {
+        $nombre=$_POST['nombrePro'];
+        $precio=$_POST['precio'];
+        $cantidad=$_POST['cantidad'];
 
+        $conexion = Conexion::connection();
+        $sql = "INSERT INTO productos (Nombre,Precio,Cantidad) VALUES ('$nombre','$precio','$cantidad')";
+        return $conexion->query($sql);
     }
 
     public function Update()
     {
+        $codigo=$_POST['codigo'];
+        $cantidad=$_POST['cant'];
+       
+        $conexion = Conexion::connection();
+        $sql = "UPDATE prodcutos SET Cantidad =(SELECT Cantidad + '$cantidad') WHERE idProducto='$codigo'";
+        return $conexion->query($sql);
         
     }
 

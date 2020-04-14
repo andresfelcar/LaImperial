@@ -1,0 +1,52 @@
+*{margin: 0px; padding: 0px;}
+tr{
+    border: 2px solid black ;
+}
+td{ 
+    border: 2px solid black;
+}
+    .tabla{
+        position: absolute;
+        width: 400px;
+        text-align: center;
+        margin-top: 100px;
+        margin-left: 25px;
+    }
+    .table2{
+
+        width: 400px;
+    }
+ .regemple{
+    position: fixed;
+    display: flex;
+    width: 300px;
+    height: 320px;
+    background-color: rgb(4, 64, 112);
+    margin-left: 750px;
+    margin-top: 100px;
+ }
+ .regemple h3{
+     margin-left: 80px;
+ }
+ .form{
+    color: white;
+    text-align: right;
+    position: absolute;
+    margin-top: 80px;
+    margin-left: 20px;
+ }
+ .form form button{
+    background: red;
+    margin-right: 60px;
+}
+h3{
+    margin-left: 8px;
+    color: white;
+}
+.input{
+    color: black;
+}
+#disp{
+    margin-left: 55px;
+}
+    
