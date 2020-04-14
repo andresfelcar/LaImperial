@@ -256,4 +256,42 @@ margin: 0;
     text-align: center;
 }
 
+@media (min-width: 200px) and (max-width:575px){
+    .table{
+        width: 80%;
+    } 
+    .col-xs-6{
+        margin-right: 2.5%;
+        margin-left: 2.5%;
+        width: 95%!important;
+        margin-top: 100px;
+    } 
+}
+
+@media (min-width: 576px) and (max-width:650px){
+    .table{
+        width: 100%;
+    } 
+    .col-xs-6{
+        margin-right: 2.5%;
+        margin-left: 2.5%;
+        width: 95%!important;
+        margin-top: 100px;
+    } 
+    
+}  
+
+@media (min-width: 651px) and (max-width:800px){
+    .table{
+        width: 100%;
+    } 
+    .col-xs-6{
+        margin-right: 2.5%;
+        margin-left: 2.5%;
+        width: 95%!important;
+        margin-top: 100px;
+    } 
+}
+
+
 

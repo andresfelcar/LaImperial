@@ -23,6 +23,9 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <link href="resource/css/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+
 </head>
 
 <body>
@@ -51,7 +54,7 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
                         <h3>Para,</h3>
                         <div class="form-group">
                             <label for="inputState">Nombre del Cliente</label>
-                            <select name="companyName" id="companyName" placeholder="Nombre de Empresa" class="form-control">
+                            <select name="companyName" id="companyName" class="form-control">
                                 <option>Seleccione alguno</option>
                                 <?php
                                 $result = $invoice->Clients(0);
@@ -80,7 +83,7 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
                             <tr>
                                 <td><input class="itemRow" type="checkbox"></td>
                                 <td><input type="text" name="productName[]" id="productName_1" class="form-control" autocomplete="off"></td>
-                                <td> 
+                                <td>
                                     <select name="productCode[]" id="productCode_1" class="form-control">
                                         <option selected>Seleccione alguno</option>
                                         <?php
@@ -136,6 +139,8 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="resource/js/invoice.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 </body>
 
 </html>

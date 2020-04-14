@@ -1,5 +1,7 @@
 <?php
 $conexion = mysqli_connect('localhost', 'root', '', 'appWeb');
+//validacion de seguridad si el usuario esta en la variable global o si ya inicio sesion
+
 ?>
 
 

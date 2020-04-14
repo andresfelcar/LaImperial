@@ -38,8 +38,9 @@ class Login_Controller
         $stmt->bind_param("ss", $array[0], $array[1]);
 
         $stmt->execute();
-
+        //obtener todos los resultados
         $result = $stmt->get_result();
+        //asosiarlos a un array fetch row
         return $result->fetch_row();
     }
 

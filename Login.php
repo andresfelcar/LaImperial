@@ -9,6 +9,7 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
 	$login = new Controller();
 
 	$array = [];
+	
 	array_push($array, $_POST['email'], $_POST['password']);
 
 	$_SESSION['user'] = $login->Login(0,$array);
@@ -70,7 +71,6 @@ if (!empty($_POST['email']) && !empty($_POST['password'])) {
 				</form>
 			</div>
 		</div>
-		<div class="col-xs-6">-</div>
 	</div>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

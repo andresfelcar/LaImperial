@@ -1,11 +1,16 @@
 <?php
 @session_start();
 require_once "controller/Controller.php";
-//validacion adm
+//validacion admin
 $resultado = $_SESSION['user'];
-if ($resultado == null || $resultado[10]==2) {
+if ($resultado == null) {
     header("Location:Login.php");
 }
+if($resultado[10]==2){
+    header("Location:View_Invoice.php");
+}
+
+
 
 $invoice =  new Controller();
 $result = $invoice->Sellers(0);

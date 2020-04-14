@@ -43,8 +43,20 @@ class Products_Controller
         $precio=$_POST['precio'];
         $cantidad=$_POST['cantidad'];
 
+
+
+        //conexion
         $conexion = Conexion::connection();
-        $sql = "INSERT INTO productos (Nombre,Precio,Cantidad) VALUES ('$nombre','$precio','$cantidad')";
+        //consulta
+        $sql = "INSERT INTO productos (Nombre,Precio,Cantidad) VALUES (?,?,?)";
+        //preparamos la consulta
+        $stmt = $conexion->prepare($sql);
+        // añadimos los parametros ("tipo de dato s= string, i= entero, d=double",$Variables en su lugar correspondiente con los ?)
+        $stmt->bind_param("sii", $nombre,$precio,$cantidad);
+        //ejecutamos el stmt
+        $stmt->execute();
+
+
         return $conexion->query($sql);
     }
 

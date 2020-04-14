@@ -27,6 +27,8 @@ if (!empty($_POST['invoice_btn']) && $_POST['invoice_btn'] == "Save Invoice") {
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 	<link href="resource/css/style.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -111,7 +113,7 @@ if (!empty($_POST['invoice_btn']) && $_POST['invoice_btn'] == "Save Invoice") {
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-						<button class="btn btn-danger delete" id="removeRows" type="button" onclick="delete()">- Delete</button>
+						<button class="btn btn-danger delete" id="removeRows" type="button" onclick="">- Delete</button>
 						<button class="btn btn-success" id="addRows" type="button">+ Add More</button>
 					</div>
 				</div>
@@ -146,8 +148,10 @@ if (!empty($_POST['invoice_btn']) && $_POST['invoice_btn'] == "Save Invoice") {
 		</form>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="resource/js/invoice.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="resource/js/invoice.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 </body>
 
 </html>

@@ -18,3 +18,47 @@
     font-size: 15px !important;
     font-weight: bold !important;
 }
+.col-xs-6{
+    margin-left: 25%;
+    margin-top: 200px;
+}
+.row{
+    margin-right: 0% !important;
+}
+
+@media (min-width: 200px) and (max-width:575px){
+    .login-form{
+        width: 100%;
+    } 
+    .col-xs-6{
+        margin-right: 2.5%;
+        margin-left: 2.5%;
+        width: 95%!important;
+        margin-top: 100px;
+    } 
+}
+
+@media (min-width: 576px) and (max-width:650px){
+    .login-form{
+        width: 100%;
+    } 
+    .col-xs-6{
+        margin-right: 2.5%;
+        margin-left: 2.5%;
+        width: 95%!important;
+        margin-top: 100px;
+    } 
+    
+}  
+
+@media (min-width: 651px) and (max-width:800px){
+    .login-form{
+        width: 100%;
+    } 
+    .col-xs-6{
+        margin-right: 2.5%;
+        margin-left: 2.5%;
+        width: 95%!important;
+        margin-top: 100px;
+    } 
+}
