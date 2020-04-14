@@ -29,7 +29,7 @@ class Invoices_Controller
 
     public function Consult($array)
     {
-        if ($array==null) {
+        if ($array == null) {
             $conexion = Conexion::connection();
             $sql = "Select fa.IdFactura,fa.Fecha,cl.Nombre1, fa.Total from facturas fa INNER JOIN clientes cl INNER JOIN usuarios us where fa.IdCliente = cl.IdCliente and fa.IdUsuario= us.IdUsuario ";
             return $conexion->query($sql);
@@ -39,9 +39,9 @@ class Invoices_Controller
 
         $result1 = $conexion->query("Select fa.IdFactura,fa.Fecha,fa.Total,cl.Nombre1,cl.Direccion  from facturas fa INNER JOIN clientes cl where fa.IdCliente=cl.IdCliente AND fa.IdFactura='$id'");
         $result2 = $conexion->query("Select pr.IdProducto, pr.Nombre,de.Cantidad, pr.Precio  from detallefacturas de INNER JOIN productos pr where de.IdProducto=pr.IdProducto and de.IdFactura='$id'");
-      
-        $array=[];
-        array_push($array,$result1,$result2);
+
+        $array = [];
+        array_push($array, $result1, $result2);
         return  $array;
     }
 
@@ -65,6 +65,33 @@ class Invoices_Controller
 
     public function Update($array)
     {
+        $conexion = Conexion::connection();
+        $date = null;
+        $stmt = $conexion->prepare("UPDATE facturas SET IdCliente = ?, Total= ? WHERE IdFactura=?");
+        $stmt->bind_param("idi", $array['companyName'], $array['subTotal'], $array['invoiceId']);
+        $stmt->execute();
+       
+        $object = new Invoices_Controller();
+        
+    
+        for ($i = 0; $i < count($array['productCode']); $i++) {
+            $vector=[];
+            array_push($vector,$conexion,$array['invoiceId'],$array['productCode'][$i],$array['quantity'][$i]);
+            $id=$object->Consult_id($vector);
+            
+            $stmt = $conexion->prepare("UPDATE detallefacturas SET IdProducto=?, Cantidad=? WHERE IdDFactura=?");
+            $stmt->bind_param("iii",$array['productCode'][$i], $array['quantity'][$i],$id[0]);
+            $stmt->execute();
+        }
+        return $stmt;
+    }
+    public function Consult_id($vector){
+        $sql ="SELECT IdDFactura FROM detallefacturas WHERE IdFactura = ? AND IdProducto= ? AND Cantidad= ?";
+        $stmt = $vector[0]->prepare($sql);
+        $stmt->bind_param("iii", $vector[1],$vector[2],$vector[3]);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_row();
     }
 
     public function Delete($array, $count = 0)

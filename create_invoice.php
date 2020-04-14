@@ -52,7 +52,7 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
                         <div class="form-group">
                             <label for="inputState">Nombre del Cliente</label>
                             <select name="companyName" id="companyName" placeholder="Nombre de Empresa" class="form-control">
-                                <option selected>Seleccione alguno</option>
+                                <option>Seleccione alguno</option>
                                 <?php
                                 $result = $invoice->Clients(0);
                                 while ($items = $result->fetch_row()) : ?>
@@ -81,7 +81,7 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
                                 <td><input class="itemRow" type="checkbox"></td>
                                 <td><input type="text" name="productName[]" id="productName_1" class="form-control" autocomplete="off"></td>
                                 <td> 
-                                    <select nname="productCode[]" id="productCode_1" class="form-control">
+                                    <select name="productCode[]" id="productCode_1" class="form-control">
                                         <option selected>Seleccione alguno</option>
                                         <?php
                                         $result = $invoice->Products(0);

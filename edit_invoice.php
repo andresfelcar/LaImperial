@@ -8,11 +8,12 @@ if ($resultado == null) {
 }
 $invoice = new Controller();
 if (!empty($_GET['update_id']) && $_GET['update_id']) {
-
-	
-
 	$invoiceValues = $invoice->Invoices(0, $_GET['update_id']);
-	$itemsF_C=$invoiceValues[0]->fetch_row();
+	$itemsF_C = $invoiceValues[0]->fetch_row();
+}
+if (!empty($_POST['invoice_btn']) && $_POST['invoice_btn'] == "Save Invoice") {
+	$invoice->Invoices(2, $_POST);
+	//header("Location:View_Invoice.php");
 }
 ?>
 
@@ -82,19 +83,29 @@ if (!empty($_GET['update_id']) && $_GET['update_id']) {
 							</tr>
 							<?php
 							$count = 0;
-							while($invoiceItem=$invoiceValues[1]->fetch_row()):
+							while ($invoiceItem = $invoiceValues[1]->fetch_row()) :
 								$count++;
 							?>
 								<tr>
 									<td><input class="itemRow" type="checkbox"></td>
-									<td><input type="text" value="<?php echo $invoiceItem[0]; ?>" name="productCode[]" id="productCode_<?php echo $count; ?>" class="form-control" autocomplete="off"></td>
-									<td><input type="text" value="<?php echo $invoiceItem[1]; ?>" name="productName[]" id="productName_<?php echo $count; ?>" class="form-control" autocomplete="off"></td>
+									<td><input type="text" value="<?php echo $invoiceItem[0]; ?>" name="" id="productCode_<?php echo $count; ?>" class="form-control" autocomplete="off"></td>
+									<td>
+										<select name="productCode[]" id="productCode_<?php echo $count; ?>" class="form-control">
+											<option selected>Seleccione alguno</option>
+											<?php
+											$result = $invoice->Products(0);
+											while ($items = $result->fetch_row()) : ?>
+												<option <?php if ($items[1] == $invoiceItem[1]) {
+															echo "selected";
+														} ?> value="<?php echo $items[0]; ?>"><?php echo $items[1]; ?></option>
+											<?php endwhile; ?>
+										</select>
 									<td><input type="number" value="<?php echo $invoiceItem[2]; ?>" name="quantity[]" id="quantity_<?php echo $count; ?>" class="form-control quantity" autocomplete="off"></td>
 									<td><input type="number" value="<?php echo $invoiceItem[3]; ?>" name="price[]" id="price_<?php echo $count; ?>" class="form-control price" autocomplete="off"></td>
-									<td><input type="number" value="<?php echo $invoiceItem[2]*$invoiceItem[3]; ?>" name="total[]" id="total_<?php echo $count; ?>" class="form-control total" autocomplete="off"></td>
+									<td><input type="number" value="<?php echo $invoiceItem[2] * $invoiceItem[3]; ?>" name="total[]" id="total_<?php echo $count; ?>" class="form-control total" autocomplete="off"></td>
 									<input type="hidden" value="<?php echo $_GET['update_id']; ?>" class="form-control" name="itemId[]">
 								</tr>
-							<?php endwhile;?>
+							<?php endwhile; ?>
 						</table>
 					</div>
 				</div>
