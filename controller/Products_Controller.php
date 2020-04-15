@@ -60,7 +60,7 @@ class Products_Controller
     {
 
         $conexion = Conexion::connection();
-        $sql = "UPDATE prodcutos SET Cantidad =(SELECT Cantidad + '$array[1]') WHERE idProducto='$array[0]'";
+        $sql = "UPDATE productos SET Cantidad =(SELECT Cantidad + ?) WHERE idProducto=?";
         $stmt = $conexion->prepare($sql);
         // añadimos los parametros ("tipo de dato s= string, i= entero, d=double",$Variables en su lugar correspondiente con los ?)
         $stmt->bind_param("ii", $array[1],$array[0]);

@@ -35,7 +35,7 @@ class Clients_Controller{
     {
         $conexion = Conexion::connection();
         
-        $sql = "INSERT INTO clientes (Nombre1,Telefono,Celular,Correo,Direccion) VALUES (?,?,?,?,?,)";
+        $sql = "INSERT INTO clientes (Nombre1,Telefono,Celular,Correo,Direccion) VALUES (?,?,?,?,?)";
 
         $stmt = $conexion->prepare($sql);
 
