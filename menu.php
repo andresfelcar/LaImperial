@@ -16,8 +16,9 @@ if ($resultado == null) {
 			<li><a href="Create_Invoice.php">Crear Factura</a></li>
 			<?php 
 			if($resultado[10]==1){
-				echo '<li><a href="View_Sellers.php">Vendedores</a></li>';
+				echo '<li><a href="Empleados.php">Vendedores</a></li>';
 				echo '<li><a href="View_Products.php">Productos</a></li>';
+				echo '<li><a href="Clientes.php">Clientes</a></li>';
 			}
 			?>
 		</ul>

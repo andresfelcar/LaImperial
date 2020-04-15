@@ -1,0 +1,39 @@
+*{margin: 0px; padding: 0px;}
+.table2 tr{
+    border: 2px solid black;
+}
+.table2 td{
+    border: 2px solid black;
+}
+.table2{
+    width: 600px;
+}
+.form{
+    color: white;
+    text-align: right;
+    height: 250px;
+    background-color: rgb(4, 64, 112);
+    width: 300px;
+}
+.form_reg{
+    
+    margin-right: 50px;
+}
+.input{
+    color: black;
+}
+.regemple{
+    margin-top: -65px;
+    margin-left: 650px;
+    position: fixed;
+    background-color:rgb(4, 64, 112) ;
+    width:300px ;
+}
+.regemple h3{
+    color: white;
+    text-align: center;
+}
+.button1{
+    background-color: red;
+    margin-right: 50px;
+}

@@ -12,7 +12,7 @@ class Clients_Controller{
                 $result = $login->Consult();
                 break;
             case 1:
-                $result = $login->Insert();
+                $result = $login->Insert($array);
                 break;
             case 2:
                 $result = $login->Update();
@@ -27,12 +27,21 @@ class Clients_Controller{
     public function Consult()
     {
         $conexion = Conexion::connection();
-        $sql = "SELECT IdCliente,Nombre1 from Clientes";
+        $sql = "SELECT IdCliente,Nombre1,Telefono,Celular,Correo,Direccion from Clientes";
         return $conexion->query($sql);
     }
 
-    public function Insert()
+    public function Insert($array)
     {
+        $conexion = Conexion::connection();
+        
+        $sql = "INSERT INTO clientes (Nombre1,Telefono,Celular,Correo,Direccion) VALUES (?,?,?,?,?,)";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->bind_param("sssss", $array[0],$array[1],$array[2],$array[3],$array[4]);
+        
+        $stmt->execute();
     }
     
     public function Update()

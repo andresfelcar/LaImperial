@@ -22,13 +22,14 @@ td{
     width: 300px;
     height: 320px;
     background-color: rgb(4, 64, 112);
-    margin-left: 750px;
+    margin-left: 800px;
     margin-top: 100px;
  }
  .regemple h3{
      margin-left: 80px;
  }
  .form{
+     
     color: white;
     text-align: right;
     position: absolute;

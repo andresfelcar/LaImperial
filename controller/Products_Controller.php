@@ -18,10 +18,10 @@ class Products_Controller
                 $result = $products->Consult();
                 break;
             case 1:
-                $result = $products->Insert();
+                $result = $products->Insert($array);
                 break;
             case 2:
-                $result = $products->Update();
+                $result = $products->Update($array);
                 break;
             case 3:
                 $result = $products->Delete($array);
@@ -33,16 +33,12 @@ class Products_Controller
     public function Consult()
     {
         $conexion = Conexion::connection();
-        $sql = "SELECT IdProducto,Nombre from Productos";
+        $sql = "SELECT IdProducto,Nombre,Precio,Cantidad from productos";
         return $conexion->query($sql);
     }
 
-    public function Insert()
+    public function Insert($array)
     {
-        $nombre=$_POST['nombrePro'];
-        $precio=$_POST['precio'];
-        $cantidad=$_POST['cantidad'];
-
 
 
         //conexion
@@ -52,7 +48,7 @@ class Products_Controller
         //preparamos la consulta
         $stmt = $conexion->prepare($sql);
         // añadimos los parametros ("tipo de dato s= string, i= entero, d=double",$Variables en su lugar correspondiente con los ?)
-        $stmt->bind_param("sii", $nombre,$precio,$cantidad);
+        $stmt->bind_param("sid", $array[0],$array[1],$array[2]);
         //ejecutamos el stmt
         $stmt->execute();
 
@@ -60,13 +56,18 @@ class Products_Controller
         return $conexion->query($sql);
     }
 
-    public function Update()
+    public function Update($array)
     {
-        $codigo=$_POST['codigo'];
-        $cantidad=$_POST['cant'];
-       
+
         $conexion = Conexion::connection();
-        $sql = "UPDATE prodcutos SET Cantidad =(SELECT Cantidad + '$cantidad') WHERE idProducto='$codigo'";
+        $sql = "UPDATE prodcutos SET Cantidad =(SELECT Cantidad + '$array[1]') WHERE idProducto='$array[0]'";
+        $stmt = $conexion->prepare($sql);
+        // añadimos los parametros ("tipo de dato s= string, i= entero, d=double",$Variables en su lugar correspondiente con los ?)
+        $stmt->bind_param("ii", $array[1],$array[0]);
+        //ejecutamos el stmt
+        $stmt->execute();
+
+
         return $conexion->query($sql);
         
     }

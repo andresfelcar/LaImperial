@@ -5,9 +5,14 @@
     background: rgb(4, 64, 112);
     position: absolute;
 }
+.header > img{
+    width:100px;
+    height: 50px;
+}
 #cont-nav{
-    margin-top: 20px;
-    margin-left: 800px;
+    width:35%;
+    height: 60px;
+    float: right;
 }
 .header a{
     color: white;

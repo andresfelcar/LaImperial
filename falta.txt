@@ -1,0 +1,4 @@
+Restar producto
+Crud del cliente
+mostrar valor en factura
+error en el update de productos 

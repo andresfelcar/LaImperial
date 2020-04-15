@@ -1,6 +1,39 @@
 <?php
-$conexion = mysqli_connect('localhost', 'root', '', 'appWeb');
-//validacion de seguridad si el usuario esta en la variable global o si ya inicio sesion
+@session_start();
+require_once "controller/Controller.php";
+//validacion admin
+$resultado = $_SESSION['user'];
+if ($resultado == null) {
+    header("location:Login.php");
+}
+if ($resultado[10] == 2) {
+    header("location:View_Invoice.php");
+}
+
+//validacion de el post definido
+if (!empty($_POST['nombrePro']) && !empty($_POST['precio'])) {
+
+    //creamos array
+    $array = [];
+    //agregamos datos al array  array_push(nombre_del_array,Variable1,varable2,variables...);
+    array_push($array, $_POST['nombrePro'], $_POST['precio'], $_POST['cantidad'],);
+//objeto para acceder al sellers
+$productos =  new Controller();
+
+$result = $productos->Products(1, $array);
+}
+//validacion segundo form
+if(!empty($_POST['codigo']) && !empty($_POST['cant'])) {
+
+    //creamos array
+    $array = [];
+    //agregamos datos al array  array_push(nombre_del_array,Variable1,varable2,variables...);
+    array_push($array, $_POST['codigo'], $_POST['cant']);
+//objeto para acceder al sellers
+$product =  new Controller();
+
+$result = $product->Products(2,$array);
+}
 
 ?>
 
@@ -22,10 +55,12 @@ $conexion = mysqli_connect('localhost', 'root', '', 'appWeb');
         <div class="heading">
             <h2 id="hh">PRODUCTOS</h2>
         </div>
+        <nav class="inclu"><?php include('Menu.php'); ?></nav>
     </div>
     <br>
 
     <table class="table2">
+        
         <tr>
             <td>Codigo</td>
             <td>Nombre</td>
@@ -35,17 +70,16 @@ $conexion = mysqli_connect('localhost', 'root', '', 'appWeb');
         </tr>
 
         <?php
-        $sql = "SELECT * from productos";
-        $result = mysqli_query($conexion, $sql);
-
-        while ($mostrar = mysqli_fetch_array($result)) {
-        ?>
+            $pro = new Controller();
+            $productos=$pro->Products(0);
+            while ($mostrar = $productos->fetch_row()) {
+            ?>
 
             <tr>
-                <td><?php echo $mostrar['IdProducto'] ?></td>
-                <td><?php echo $mostrar['Nombre'] ?></td>
-                <td><?php echo $mostrar['Precio'] ?></td>
-                <td><?php echo $mostrar['Cantidad'] ?></td>
+                <td><?php echo $mostrar[0] ?></td>
+                <td><?php echo $mostrar[1] ?></td>
+                <td><?php echo $mostrar[2] ?></td>
+                <td><?php echo $mostrar[3] ?></td>
 
             </tr>
         <?php
@@ -55,7 +89,7 @@ $conexion = mysqli_connect('localhost', 'root', '', 'appWeb');
     <div class="regproducto">
         <h3>REGISTRAR PRODUCTO</h3>
         <div class="form">
-            <form class="form_reg" action="controller/Products_Controller.php" method="POST">
+            <form class="form_reg" action="" method="POST">
 
                 <p>Nombre: <input name="nombrePro" class="input" type="text" required autofocus></p>
                 <p>Precio: <input name="precio" class="input" type="number" required autofocus></p>
@@ -68,7 +102,7 @@ $conexion = mysqli_connect('localhost', 'root', '', 'appWeb');
     <div class="regproducto2">
         <h3 id="disp">DISPONIBILIDAD</h3>
         <div class="form">
-            <form class="form_reg" action="controller/Products_Controller.php" method="POST">
+            <form class="form_reg" action="" method="POST">
 
                 <p>Codigo: <input name="codigo" class="input" type="number" required autofocus></p>
                 <p>Cantidad: <input name="cant" class="input" type="number" required autofocus></p>
@@ -82,3 +116,6 @@ $conexion = mysqli_connect('localhost', 'root', '', 'appWeb');
 </body>
 
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="resource/js/invoice.js"></script>
