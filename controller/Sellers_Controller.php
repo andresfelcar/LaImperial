@@ -12,7 +12,7 @@ class Sellers_Controller
         $seller = new Sellers_Controller();
         switch ($option) {
             case 0:
-                $result = $seller->Consult();
+                $result = $seller->Consult($array);
                 break;
             case 1:
                 $result = $seller->Insert($array);
@@ -21,17 +21,22 @@ class Sellers_Controller
                 $result = $seller->Update();
                 break;
             case 3:
-                $result = $seller->Delete();
+                $result = $seller->Delete($array);
                 break;
         }
         return $result;
     }
 
-    public function Consult()
+    public function Consult($array)
     {
         $conexion = Conexion::connection();
-        $sql = "SELECT Nombre1,Apellido1,NDocumento,Celular,Correo,Contrasena,FechaIngreso,Ventas from Usuarios";
+        if ($array == null) {
+            $sql = "SELECT IdUsuario,Nombre1,Apellido1,NDocumento,Celular,Correo,Contrasena,FechaIngreso,Ventas from Usuarios";
+            return $conexion->query($sql);
+        }
+        $sql = "SELECT * from Usuarios WHERE IdUsuario='$array'";
         return $conexion->query($sql);
+
     }
 
     public function Insert($array)
@@ -41,20 +46,29 @@ class Sellers_Controller
 
         $fecha = date('Y-m-d h:i:s', time());
 
-        
+
         $sql = "INSERT INTO usuarios (Nombre1,Apellido1,NDocumento,Celular,Contrasena,Correo,FechaIngreso) VALUES (?,?,?,?,MD5(?),?,'$fecha')";
 
         $stmt = $conexion->prepare($sql);
 
         $stmt->bind_param("ssssss", $array[0], $array[1], $array[2], $array[3], $array[4], $array[5]);
-        
+
         $stmt->execute();
     }
     public function Update()
     {
     }
 
-    public function Delete()
+    public function Delete($array)
     {
+        $conexion = Conexion::connection();
+
+        $sql = "DELETE FROM usuarios WHERE IdUsuario=? ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->bind_param("i", $array[0]);
+
+        $stmt->execute();
     }
 }

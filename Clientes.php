@@ -13,10 +13,21 @@ if (!empty($_POST['nomcli']) && !empty($_POST['emailcli'])) {
     $array = [];
     //agregamos datos al array  array_push(nombre_del_array,Variable1,varable2,variables...);
     array_push($array, $_POST['nomcli'], $_POST['tel'], $_POST['cel'], $_POST['emailcli'], $_POST['direc']);
-//objeto para acceder al sellers
-$clientes =  new Controller();
+    //objeto para acceder al sellers
+    $clientes =  new Controller();
 
-$result = $clientes->Clients(1, $array);
+    $result = $clientes->Clients(1, $array);
+}
+if (!empty($_POST['code'])) {
+
+    //creamos array
+    $array = [];
+    //agregamos datos al array  array_push(nombre_del_array,Variable1,varable2,variables...);
+    array_push($array, $_POST['code']);
+    //objeto para acceder al sellers
+    $deletecli =  new Controller();
+
+    $result = $deletecli->Clients(3, $array);
 }
 
 ?>
@@ -27,10 +38,12 @@ $result = $clientes->Clients(1, $array);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clientes</title>
+    <link href="resource/css/clientes1.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <link href="resource/css/clientes.css" rel="stylesheet">
     <link href="resource/css/style.css" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -87,13 +100,24 @@ $result = $clientes->Clients(1, $array);
 
                 </form>
             </div>
+        </div>
 
+        <div class="regemple2">
+            <h3>ELIMINAR </h3>
+            <div class="form">
+                <form class="form_reg" action="" method="POST">
+                    <p>Codigo: <input name="code" class="input" type="text" required autofocus></p>
+                    <button class="button1" type="submit"> Eliminar </button>
+
+                </form>
+            </div>
 
 
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="resource/js/invoice.js"></script>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="resource/js/invoice.js"></script>
 </body>
 
 </html>

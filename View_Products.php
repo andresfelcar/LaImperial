@@ -45,7 +45,7 @@ $result = $product->Products(2,$array);
     <title>Productos</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <link href="resource/css/productos.css" rel="stylesheet">
+    <link href="resource/css/productos1.css" rel="stylesheet">
     <link href="resource/css/style.css" rel="stylesheet">
 
 </head>
@@ -54,10 +54,11 @@ $result = $product->Products(2,$array);
     <div class="naveg">
         <div class="heading">
             <h2 id="hh">PRODUCTOS</h2>
+            <nav class="inclu"><?php include('Menu.php'); ?></nav>
         </div>
-        <nav class="inclu"><?php include('Menu.php'); ?></nav>
+        
     </div>
-    <br>
+    
 
     <table class="table2">
         

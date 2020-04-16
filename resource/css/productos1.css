@@ -1,16 +1,32 @@
-*{margin: 0 ; padding: 0;}
-.table2{
-    position: absolute;
-    width: 700px;
+*{margin: 0; padding: 0;box-sizing: border-box;}
+body{
+    background: orange;
+}
+#table{
+    width: 100%;
+}
+th {
+    background-color:rgb(4, 64, 112);
+    color: white;
     text-align: center;
-    margin-top: 100px;
-    margin-left: 50px;
+    padding:8px;
 }
-.table2 tr{
-border: 2px solid black;
+td{
+    padding: 5px 3px;
 }
-.table2 td{
-    border: 2px solid black;
+td .overflow{
+    width: 80px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+    .tabla{
+        position: relative;
+        width: 68%;
+        text-align: center;
+        float: left;
+        top:120px;
+        left: 50px;
     }
 .regproducto{
     position: fixed;
@@ -52,4 +68,7 @@ h3{
 }
 #disp{
     margin-left: 55px;
+}
+.inclu{
+    margin-left: 50px;
 }
