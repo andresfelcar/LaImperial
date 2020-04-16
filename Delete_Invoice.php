@@ -7,6 +7,7 @@ if ($resultado == null) {
     header("Location:Login.php");
 }
 
+
 if(!empty($_POST['id'])){
     $invoice =  new Controller();
     $array = array(
@@ -14,6 +15,13 @@ if(!empty($_POST['id'])){
     );
     echo $array[0];
     $resultado = $invoice->Invoices(3,$array);
+    return $resultado;
+}
+
+if(!empty($_POST['idProduct'])){
+    $invoice =  new Controller();
+  
+    $resultado = $invoice->Invoices(4,$_POST['idProduct']);
     return $resultado;
 }
 ?>

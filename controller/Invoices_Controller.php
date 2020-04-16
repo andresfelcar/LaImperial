@@ -23,15 +23,23 @@ class Invoices_Controller
             case 3:
                 $result = $invoice->Delete($array);
                 break;
+            case 4:
+                $result = $invoice->DeleteDetFac($array);
+                break;
         }
         return $result;
     }
 
     public function Consult($array)
     {
-        if ($array == null) {
+        if ($array[0] == 1) {
             $conexion = Conexion::connection();
             $sql = "Select fa.IdFactura,fa.Fecha,cl.Nombre1, fa.Total from facturas fa INNER JOIN clientes cl INNER JOIN usuarios us where fa.IdCliente = cl.IdCliente and fa.IdUsuario= us.IdUsuario ";
+            return $conexion->query($sql);
+        }
+        if ($array[0] == 2) {
+            $conexion = Conexion::connection();
+            $sql = "Select fa.IdFactura,fa.Fecha,cl.Nombre1, fa.Total from facturas fa INNER JOIN clientes cl INNER JOIN usuarios us where fa.IdCliente = cl.IdCliente and fa.IdUsuario= us.IdUsuario AND fa.IdUsuario='$array[1]' ";
             return $conexion->query($sql);
         }
         $conexion = Conexion::connection();
@@ -60,6 +68,14 @@ class Invoices_Controller
             $stmt = $conexion->prepare("INSERT INTO detalleFacturas(IdFactura,IdProducto,Cantidad) VALUES (?,?,?)");
             $stmt->bind_param("iii", $id[0], $array['productCode'][$i], $array['quantity'][$i]);
             $stmt->execute();
+            $var=$array['productCode'][$i];
+            $sql = "Select Cantidad From Productos Where IdProducto='$var'";
+            $resultado=$conexion->query($sql);
+            $resultado=$resultado->fetch_row();
+            $total=$resultado[0]-$array['quantity'][$i];
+            $stmt = $conexion->prepare("UPDATE Productos SET Cantidad=? WHERE IdProducto= ?");
+            $stmt->bind_param("ii", $total, $array['productCode'][$i]);
+            $stmt->execute();
         }
         return $stmt;
     }
@@ -70,13 +86,13 @@ class Invoices_Controller
         $stmt = $conexion->prepare("UPDATE facturas SET IdCliente = ?, Total= ? WHERE IdFactura=?");
         $stmt->bind_param("idi", $array['companyName'], $array['subTotal'], $array['invoiceId']);
         $stmt->execute();
-       
+
         $object = new Invoices_Controller();
-        
-    
+
+
         for ($i = 0; $i < count($array['detFactura']); $i++) {
             $stmt = $conexion->prepare("UPDATE detallefacturas SET IdProducto=?, Cantidad=? WHERE IdDFactura=?");
-            $stmt->bind_param("iii",$array['productCode'][$i], $array['quantity'][$i],$array['detFactura'][$i]);
+            $stmt->bind_param("iii", $array['productCode'][$i], $array['quantity'][$i], $array['detFactura'][$i]);
             $stmt->execute();
         }
         return $stmt;
@@ -98,6 +114,17 @@ class Invoices_Controller
             $object = new Invoices_Controller();
             $object->Delete($array, $count);
         }
+        return $stmt;
+    }
+    public function DeleteDetFac($array)
+    {
+        $conexion = Conexion::connection();
+        $sql = "DELETE from detallefacturas WHERE IdDFactura = ? ";
+        
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("i", $array);
+        $stmt->execute();
+
         return $stmt;
     }
 }

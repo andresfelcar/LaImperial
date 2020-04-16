@@ -87,12 +87,13 @@ if (!empty($_POST['invoice_btn']) && $_POST['invoice_btn'] == "Save Invoice") {
 							$count = 0;
 							while ($invoiceItem = $invoiceValues[1]->fetch_row()) :
 								$count++;
+								
 							?>
 								<tr>
-									<td><input class="itemRow" type="checkbox"></td>
-									<td><input type="text" value="<?php echo $invoiceItem[4]; ?>" name="detFactura[]" id="detFactura_<?php echo $count; ?>" class="form-control" autocomplete="off"></td>
+									<td><input class="itemRow" id="contador" type="checkbox" value="<?php echo $invoiceItem[4]; ?>"></td>
+									<td><input type="text" value="<?php echo $invoiceItem[4]; ?>" name="detFactura[]" id="detFactura_<?php echo $count; ?>" class="form-control" autocomplete="off" readonly="readonly"></td>
 									<td>
-										<select name="productCode[]" id="productCode_<?php echo $count; ?>" class="form-control">
+										<select name="productCode[]" id="productCode_<?php echo $count; ?>" class="form-control" onchange="javascript:selectProducts(this.value,<?php echo $count;?>)">
 											<option selected>Seleccione alguno</option>
 											<?php
 											$result = $invoice->Products(0);
@@ -103,8 +104,8 @@ if (!empty($_POST['invoice_btn']) && $_POST['invoice_btn'] == "Save Invoice") {
 											<?php endwhile; ?>
 										</select>
 									<td><input type="number" value="<?php echo $invoiceItem[2]; ?>" name="quantity[]" id="quantity_<?php echo $count; ?>" class="form-control quantity" autocomplete="off"></td>
-									<td><input type="number" value="<?php echo $invoiceItem[3]; ?>" name="price[]" id="price_<?php echo $count; ?>" class="form-control price" autocomplete="off"></td>
-									<td><input type="number" value="<?php echo $invoiceItem[2] * $invoiceItem[3]; ?>" name="total[]" id="total_<?php echo $count; ?>" class="form-control total" autocomplete="off"></td>
+									<td><input type="number" value="<?php echo $invoiceItem[3]; ?>" name="price[]" id="price_<?php echo $count; ?>" class="form-control price" autocomplete="off" readonly="readonly"></td>
+									<td><input type="number" value="<?php echo $invoiceItem[2] * $invoiceItem[3]; ?>" name="total[]" id="total_<?php echo $count; ?>" class="form-control total" autocomplete="off" readonly="readonly"></td>
 									<input type="hidden" value="<?php echo $_GET['update_id']; ?>" class="form-control" name="itemId[]">
 								</tr>
 							<?php endwhile; ?>
@@ -148,7 +149,8 @@ if (!empty($_POST['invoice_btn']) && $_POST['invoice_btn'] == "Save Invoice") {
 		</form>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="resource/js/ajax.js"></script>
     <script src="resource/js/invoice.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>

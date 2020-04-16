@@ -8,7 +8,11 @@ if ($resultado == null) {
 }
 
 $invoice =  new Controller();
-$result = $invoice->Invoices(0);
+$array=[
+    0=>$resultado[10],
+    1=>$resultado[0]
+];
+$result = $invoice->Invoices(0,$array);
 ?>
 <!DOCTYPE html>
 <html lang="en">

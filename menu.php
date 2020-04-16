@@ -14,11 +14,11 @@ if ($resultado == null) {
 		<ul class="dropdown-menu">
 			<li><a href="View_Invoice.php">Lista de Facturas</a></li>
 			<li><a href="Create_Invoice.php">Crear Factura</a></li>
+			<li><a href="Clientes.php">Clientes</a></li>
 			<?php 
 			if($resultado[10]==1){
 				echo '<li><a href="Empleados.php">Vendedores</a></li>';
 				echo '<li><a href="View_Products.php">Productos</a></li>';
-				echo '<li><a href="Clientes.php">Clientes</a></li>';
 			}
 			?>
 		</ul>
@@ -27,8 +27,7 @@ if ($resultado == null) {
 		<button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Conectado: <?php echo $resultado[1]; ?>
 			<span class="caret"></span></button>
 		<ul class="dropdown-menu">
-			<li><a href="#">Mi Cuenta</a></li>
-			<li><a href="action.php?action=logout">Salir</a></li>
+			<li><a href="Salir.php">Salir</a></li>
 		</ul>
 	</li>
 </ul>

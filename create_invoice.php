@@ -82,9 +82,9 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
                             </tr>
                             <tr>
                                 <td><input class="itemRow" type="checkbox"></td>
-                                <td><input type="text" name="productName[]" id="productName_1" class="form-control" autocomplete="off"></td>
+                                <td><input type="text" name="productName[]" id="productName_1" class="form-control" autocomplete="off" readonly="readonly"></td>
                                 <td>
-                                    <select name="productCode[]" id="productCode_1" class="form-control">
+                                    <select name="productCode[]" id="productCode_1" class="form-control"  onchange="javascript:selectProducts(this.value,1);">
                                         <option selected>Seleccione alguno</option>
                                         <?php
                                         $result = $invoice->Products(0);
@@ -92,10 +92,9 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
                                             <option value="<?php echo $items[0]; ?>"><?php echo $items[1]; ?></option>
                                         <?php endwhile; ?>
                                     </select>
-                                    <!--<input type="text" name="productCode[]" id="productCode_1" class="form-control" autocomplete="off">-->
                                 </td>
-                                <td><input type="number" name="quantity[]" id="quantity_1" class="form-control quantity" autocomplete="off"></td>
-                                <td><input type="number" name="price[]" id="price_1" class="form-control price" autocomplete="off"></td>
+                                <td><input type="number" name="quantity[]" id="quantity_1" class="form-control quantity"></td>
+                                <td><input type="number" name="price[]" id="price_1" class="form-control price" autocomplete="off" readonly="readonly"></td>
                                 <td><input type="number" name="total[]" id="total_1" class="form-control total" autocomplete="off" readonly="readonly"></td>
                             </tr>
                         </table>
