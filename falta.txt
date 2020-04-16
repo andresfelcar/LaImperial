@@ -1,3 +1,19 @@
 Restar producto
+<<<<<<< HEAD
 Crud del cliente
 error en el update de productos 
+=======
+Crud del cliente-eliminar-editar
+mostrar valor en factura
+responsive 
+comprar hosting
+
+El plan se renueva el 15/4/2021 a $ 48.001/año
+Plan se renueva el 15/4/2021 a $ 17.999/mes
+la-imperial.net
+DevelopersGroup20@gmail.com - Poseidon2020
+
+la-imperial.net
+
+La ubicación elegida para tu sitio web es:Norteamérica (EE. UU.)
+>>>>>>> d45769a2fff62461a0a81e2768f030f55756e037
