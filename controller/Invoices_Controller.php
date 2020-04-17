@@ -26,6 +26,9 @@ class Invoices_Controller
             case 4:
                 $result = $invoice->DeleteDetFac($array);
                 break;
+            case 5:
+                $result = $invoice->InsertDetFac($array);
+                break;
         }
         return $result;
     }
@@ -68,11 +71,11 @@ class Invoices_Controller
             $stmt = $conexion->prepare("INSERT INTO detalleFacturas(IdFactura,IdProducto,Cantidad) VALUES (?,?,?)");
             $stmt->bind_param("iii", $id[0], $array['productCode'][$i], $array['quantity'][$i]);
             $stmt->execute();
-            $var=$array['productCode'][$i];
+            $var = $array['productCode'][$i];
             $sql = "Select Cantidad From Productos Where IdProducto='$var'";
-            $resultado=$conexion->query($sql);
-            $resultado=$resultado->fetch_row();
-            $total=$resultado[0]-$array['quantity'][$i];
+            $resultado = $conexion->query($sql);
+            $resultado = $resultado->fetch_row();
+            $total = $resultado[0] - $array['quantity'][$i];
             $stmt = $conexion->prepare("UPDATE Productos SET Cantidad=? WHERE IdProducto= ?");
             $stmt->bind_param("ii", $total, $array['productCode'][$i]);
             $stmt->execute();
@@ -87,7 +90,6 @@ class Invoices_Controller
         $stmt->bind_param("idi", $array['companyName'], $array['subTotal'], $array['invoiceId']);
         $stmt->execute();
 
-        $object = new Invoices_Controller();
 
 
         for ($i = 0; $i < count($array['detFactura']); $i++) {
@@ -120,11 +122,24 @@ class Invoices_Controller
     {
         $conexion = Conexion::connection();
         $sql = "DELETE from detallefacturas WHERE IdDFactura = ? ";
-        
+
         $stmt = $conexion->prepare($sql);
         $stmt->bind_param("i", $array);
         $stmt->execute();
 
         return $stmt;
+    }
+    public function InsertDetFac($array)
+    {
+        $conexion = Conexion::connection();
+        echo "hola";
+        $stmt = $conexion->prepare("INSERT INTO detalleFacturas(IdFactura,IdProducto,Cantidad) VALUES (?,?,?)");
+        $stmt->bind_param("iii", $array[0], $array[1], $array[2]);
+        $stmt->execute();
+
+        $total=$array[3];
+        $var=$array[0];
+        $sql="UPDATE Factura SET Total ='$total' WHERE IdFactura='$var'";
+        $conexion->query($sql);
     }
 }

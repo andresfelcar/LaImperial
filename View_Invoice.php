@@ -8,11 +8,17 @@ if ($resultado == null) {
 }
 
 $invoice =  new Controller();
+<<<<<<< HEAD
 $array=[
     0=>$resultado[9],
     1=>$resultado[0]
+=======
+$array = [
+    0 => $resultado[10],
+    1 => $resultado[0]
+>>>>>>> c7aebdc6b3dd7b9eaa9955afdc4e23315a649eeb
 ];
-$result = $invoice->Invoices(0,$array);
+$result = $invoice->Invoices(0, $array);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,14 +37,15 @@ $result = $invoice->Invoices(0,$array);
         <h2 id="hh">Facturas</h2>
     </div>
     <div class="container">
-        <h2 class="title">Sistema de Facturacion el Imperial</h2>
-        <?php include('Menu.php'); ?>
+        <div class="marggin">
+            <?php include('menu.php'); ?>
+        </div>
         <table id="data-table" class="table table-condensed table-striped">
             <thead>
                 <tr>
                     <th width="7%">Fac. No.</th>
                     <th width="15%">Fecha Creación</th>
-                    <th width="35%">Cliente</th>
+                    <th width="30%">Cliente</th>
                     <th width="15%">Fatura Total</th>
                     <th width="3%"></th>
                     <th width="3%"></th>
@@ -46,17 +53,23 @@ $result = $invoice->Invoices(0,$array);
                 </tr>
             </thead>
             <?php
-            while($resultado = $result->fetch_row()):?>
-               <tr>
-                    <td><?php echo $resultado[0]?></td>
-                    <td><?php echo $resultado[1]?></td>
-                    <td><?php echo $resultado[2]?></td>
-                    <td><?php echo $resultado[3]?></td>
-                    <td><a href="Print_Invoice.php?invoice_id=<?php echo $resultado[0]?>" title="Imprimir Factura"><div class="btn btn-primary"><span class="glyphicon glyphicon-print"></span></div></a></td>
-                    <td><a href="Edit_Invoice.php?update_id=<?php echo $resultado[0]?>"  title="Editar Factura"><div class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></div></a></td>
-                    <td><a href="#" id="<?php echo $resultado[0]?>" class="deleteInvoice"  title="Borrar Factura"><div class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></div></a></td>
+            while ($resultado = $result->fetch_row()) : ?>
+                <tr>
+                    <td><?php echo $resultado[0] ?></td>
+                    <td><?php echo $resultado[1] ?></td>
+                    <td><?php echo $resultado[2] ?></td>
+                    <td><?php echo $resultado[3] ?></td>
+                    <td class="td"><a href="Print_Invoice.php?invoice_id=<?php echo $resultado[0] ?>" title="Imprimir Factura">
+                            <div class="btn btn-primary"><span class="glyphicon glyphicon-print"></span></div>
+                        </a></td>
+                    <td class="td"><a href="Edit_Invoice.php?update_id=<?php echo $resultado[0] ?>" title="Editar Factura">
+                            <div class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></div>
+                        </a></td>
+                    <td class="td"><a href="#" id="<?php echo $resultado[0] ?>" class="deleteInvoice" title="Borrar Factura">
+                            <div class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></div>
+                        </a></td>
                 </tr>
-            <?php endwhile;?>    
+            <?php endwhile; ?>
         </table>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

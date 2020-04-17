@@ -19,4 +19,5 @@ if(!empty($_POST['idProduct'])){
     $response= $response->fetch_all();
     echo json_encode($response);
 }
+
 ?>

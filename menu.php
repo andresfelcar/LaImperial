@@ -9,7 +9,7 @@ if ($resultado == null) {
 <!--validacion de inicio de sesion-->
 <ul class="nav navbar-nav">
 	<li class="dropdown">
-		<button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Factura
+		<button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Menu de Usuario
 			<span class="caret"></span></button>
 		<ul class="dropdown-menu">
 			<li><a href="View_Invoice.php">Lista de Facturas</a></li>
@@ -23,7 +23,7 @@ if ($resultado == null) {
 			?>
 		</ul>
 	</li>
-	<li class="dropdown">
+	<li class="dropdown dr">
 		<button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Conectado: <?php echo $resultado[1]; ?>
 			<span class="caret"></span></button>
 		<ul class="dropdown-menu">
