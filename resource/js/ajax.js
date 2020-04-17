@@ -4,7 +4,10 @@ $(document).ready(function () {
 });
 
 
-
 $(document).ready(function () {
 	$('#productCode_1').select2();
+});
+
+$(document).ready(function () {
+	$('#productCode_n').select2();
 });

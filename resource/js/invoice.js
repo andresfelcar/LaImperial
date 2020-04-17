@@ -1,27 +1,40 @@
 
 window.onload = Consult
 var global;
-var global2;
 var contador = 1;
 
+
 function selectProducts(id,idSelect){
+	var result;
     $.ajax({
 		type: "POST",
 		data: "idProduct=" + id,
 		url: "Select_Products.php",
 		dataType: "json",
 		success: function (r) {
-            console.log(r);
-            global2=r[0][1];
-			$('#price_'+idSelect).val(r[0][0]);
+			console.log(r,id);
+			$('#idProduct_'+idSelect).val(r[0][1]);		
+			$('#price_'+idSelect).val(r[0][0]);			
 		}
 	});
-	return global2;
+	return result;
+	
+}
+function selectClient(value){
+	if(value == null){
+		alert("Por favor ingresa un cliente");
+	}
+}
+function validateQuantity(cantidad,idSelect){
+	let value = document.getElementById('idProduct_'+idSelect).value;
+	if(Number(cantidad) > Number(value)){
+		console.log(cantidad+"     valor: "+value);
+		alert('Cantidad ingresada no valida. Cantidad disponible: '+value);
+		$('#quantity_'+idSelect).val(1);
+	}
 }
 
-
 function ChargeAllConsult(count) {
-	console.log(count);
 	for(i=1;i<count+1;i++){
 		$(document).ready(function () {
 		$('#productCode_' + i).select2();
@@ -37,7 +50,6 @@ function Consult() {
 		url: "Select_Products.php",
 		dataType: "json",
 		success: function (r) {
-			console.log(r);
 			global = r;
 			ChargeAllConsult(r.length);
 		}
@@ -68,9 +80,8 @@ $(document).ready(function () {
 		var htmlRows = '';
 		htmlRows += '<tr>';
 		htmlRows += '<td><input class="itemRow" type="checkbox"></td>';
-		htmlRows += '<td><input type="text" name="productName[]" id="productName_' + count + '" class="form-control" autocomplete="off"></td>';
-		htmlRows += '<td><select name="productCode[]" id="productCode_' + count + '" class="form-control" onchange="javascript:selectProducts(this.value,' + count + ');"><option selected>Seleccione alguno</option>' + datos + '</select></td>';
-		htmlRows += '<td><input type="number" name="quantity[]" id="quantity_' + count + '" class="form-control quantity" autocomplete="off"></td>';
+		htmlRows += '<td><input type="text" style="display: none;" name="productName[]" id="productName_' + count + '" class="form-control" autocomplete="off" readonly="readonly"><select name="productCode[]" id="productCode_' + count + '" class="form-control" onchange="javascript:selectProducts(this.value,' + count + ');"><option selected>Seleccione alguno</option>' + datos + '</select></td>';
+		htmlRows += '<td><input type="number" style="display: none;" id="idProduct_' + count + '"><input type="number" name="quantity[]" id="quantity_' + count + '" class="form-control quantity" autocomplete="off" onchange="javascript:validateQuantity(this.value,' + count + ');"></td>';
 		htmlRows += '<td><input type="number" name="price[]" id="price_' + count + '" class="form-control price" autocomplete="off" readonly="readonly"></td>';
 		htmlRows += '<td><input type="number" name="total[]" id="total_' + count + '" class="form-control total" autocomplete="off" readonly="readonly"></td>';
 		htmlRows += '</tr>';
@@ -153,15 +164,10 @@ function calculateTotal() {
 		var price = $('#price_' + id).val();
 		var quantity = $('#quantity_' + id).val();
 		if (!quantity) {
-			quantity = 1;
-			$('#quantity_'+ id).val(quantity);
+			quantity = 0;
+			$('#quantity_'+ id).val(0);
 		}
-		console.log(global2);
-		if(quantity>global2){
-			console.log(quantity);
-			alert("No disponible esa cantidad, Ingrese otra por favor.");
-			$('#quantity_'+ id).val(1);
-		}
+		
 		var total = price * quantity;
 		$('#total_' + id).val(parseFloat(total));
 		totalAmount += total;
