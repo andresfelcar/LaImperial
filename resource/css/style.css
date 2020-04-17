@@ -138,10 +138,11 @@ body {
     color: #fff !important;
 }
 .btn-info, .panel-info {
-    background-color: rgb(4, 64, 112);
+    background-color: #23b7e5;
     border-color: #23b7e5;
     color: #fff !important;
 }
+
 .btn-warning, .panel-warning {
     background-color: #fad733;
     border-color: #fad733;

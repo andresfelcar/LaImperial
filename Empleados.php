@@ -5,14 +5,14 @@ $resultado = $_SESSION['user'];
 if ($resultado == null) {
     header("location:Login.php");
 }
-if ($resultado[10] == 2) {
+if ($resultado[9] == 2) {
     header("location:View_Invoice.php");
 }
 
 if (!empty($_POST['nomb']) && !empty($_POST['apell'])) {
     $array = [];
 
-    array_push($array, $_POST['nomb'], $_POST['apell'], $_POST['dni'], $_POST['cel'], $_POST['pass'], $_POST['email']);
+    array_push($array, $_POST['nomb'], $_POST['apell'], $_POST['dni'], $_POST['cel'], $_POST['pass'], $_POST['email'],$_POST['tipousuario']);
 
     $empleados =  new Controller();
 
@@ -38,11 +38,12 @@ if (!empty($_POST['deletven'])) {
 
     <head>
         <title>Productos</title>
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link href="resource/css/empleados2.css" rel="stylesheet">
-        <link href="resource/css/style.css" rel="stylesheet">
-       
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    
+    
+    <link href="resource/css/style.css" rel="stylesheet">
+        <link href="resource/css/empleados3.css" rel="stylesheet">
 
     </head>
     <title>Empleados</title>
@@ -63,6 +64,11 @@ if (!empty($_POST['deletven'])) {
                 <p>Celular: <input name="cel"  type="text" required autofocus></p>
                 <p>Correo: <input name="email"  type="text" id="min" required autofocus></p>
                 <p>Contraseña: <input name="pass"  type="password" required autofocus></p>
+                <select name="tipousuario" id="companyName" class="form-control" class="lista52">
+                                <option value="1">Seleccione Administrador</option>
+                                <option value="2">Seleccione Vendedor</option>
+                               
+                            </select>
                 <button type="submit"> Registrar </button>
             </form>
         </div>
@@ -74,7 +80,7 @@ if (!empty($_POST['deletven'])) {
             </form>
     </div>
     <div class="tabla">
-        <div class="inclu"><?php include('Menu.php'); ?></div>
+        <div ><?php include('Menu.php'); ?></div>
         <table id="table">
             <thead>
                 <tr>
@@ -114,7 +120,7 @@ if (!empty($_POST['deletven'])) {
                 ?>
 
             </tbody>
-
+            </table>
         </div>
     </div>
     

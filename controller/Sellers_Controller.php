@@ -18,7 +18,7 @@ class Sellers_Controller
                 $result = $seller->Insert($array);
                 break;
             case 2:
-                $result = $seller->Update();
+                $result = $seller->Update($array);
                 break;
             case 3:
                 $result = $seller->Delete($array);
@@ -47,16 +47,25 @@ class Sellers_Controller
         $fecha = date('Y-m-d h:i:s', time());
 
 
-        $sql = "INSERT INTO usuarios (Nombre1,Apellido1,NDocumento,Celular,Contrasena,Correo,FechaIngreso) VALUES (?,?,?,?,MD5(?),?,'$fecha')";
+        $sql = "INSERT INTO usuarios (Nombre1,Apellido1,NDocumento,Celular,Contrasena,Correo,FechaIngreso,IdTUsuario) VALUES (?,?,?,?,MD5(?),?,'$fecha',?)";
 
         $stmt = $conexion->prepare($sql);
 
-        $stmt->bind_param("ssssss", $array[0], $array[1], $array[2], $array[3], $array[4], $array[5]);
+        $stmt->bind_param("ssssss", $array[0], $array[1], $array[2], $array[3], $array[4], $array[5],$array[6]);
 
         $stmt->execute();
     }
-    public function Update()
+    public function Update($array)
     {
+        $conexion = Conexion::connection();
+        
+        $sql = "UPDATE usuarios SET Nombre1=?,Apellido1=?,NDocumento=?,Celular=?,Contrasena=MD5(?),Correo=? WHERE IdUsuario=? ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->bind_param("ssssssi",$array[1],$array[2],$array[3],$array[4],$array[5],$array[6],$array[0]);
+        
+        $stmt->execute();
     }
 
     public function Delete($array)

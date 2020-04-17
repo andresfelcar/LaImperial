@@ -9,7 +9,7 @@ class Clients_Controller{
         $login = new Clients_Controller();
         switch ($option) {
             case 0:
-                $result = $login->Consult();
+                $result = $login->Consult($array);
                 break;
             case 1:
                 $result = $login->Insert($array);
@@ -24,12 +24,17 @@ class Clients_Controller{
         return $result;
     }
 
-    public function Consult()
+    public function Consult($array)
     {
+        if($array==null){  
+            $conexion = Conexion::connection();
+            $sql = "SELECT IdCliente,Nombre1,Telefono,Celular,Correo,Direccion from Clientes";
+            return $conexion->query($sql);
+        }
         $conexion = Conexion::connection();
-        $sql = "SELECT IdCliente,Nombre1,Telefono,Celular,Correo,Direccion from Clientes";
-        return $conexion->query($sql);
-    }
+            $sql = "SELECT IdCliente,Nombre1,Telefono,Celular,Correo,Direccion from Clientes WHERE IdCliente='$array'";
+            return $conexion->query($sql);
+       }
 
     public function Insert($array)
     {
@@ -48,11 +53,11 @@ class Clients_Controller{
     {
         $conexion = Conexion::connection();
         
-        $sql = "UPDATE clientes SET Nombre1=?,Apellido1=?,NDocumento=?,Celular=?,Contrasena=?,Correo=? WHERE IdUsuario=? ";
+        $sql = "UPDATE clientes SET Nombre1=?,Telefono=?,Celular=?,Correo=?,Direccion=? WHERE IdCliente=? ";
 
         $stmt = $conexion->prepare($sql);
 
-        $stmt->bind_param("i",$array[1],$array[2],$array[3],$array[4],$array[5],$array[6],$array[0]);
+        $stmt->bind_param("sssssi",$array[1],$array[2],$array[3],$array[4],$array[5],$array[0]);
         
         $stmt->execute();
     }

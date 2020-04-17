@@ -40,7 +40,7 @@ td .overflow{
         top: 70px;
     }
     .regemple2{
-        top: 425px;
+        top: 460px;
     }
     .form_reg{
         padding: 0 5px;
@@ -69,6 +69,7 @@ td .overflow{
         width: 150px;
         padding: 5px 3px;
         cursor: pointer;
+        margin-top: 10px;
     }
     .form_reg button:hover{
         box-shadow: 1px 1px 4px 0 white;

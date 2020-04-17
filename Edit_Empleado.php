@@ -11,7 +11,8 @@ $invoice = new Controller();
 
 if (!empty($_GET['update_id'])) {
 	$invoiceValues = $invoice->Sellers(0, $_GET['update_id']);
-	$items = $invoiceValues->fetch_row();
+    $items = $invoiceValues->fetch_row();
+    
 }
 if (!empty($_POST['nomb']) && !empty($_POST['idin'])) {
     $array = [];
@@ -21,6 +22,7 @@ if (!empty($_POST['nomb']) && !empty($_POST['idin'])) {
     $empleados =  new Controller();
 
     $result = $empleados->Sellers(2, $array);
+    header("location:Empleados.php");
 }
 ?>
 <!DOCTYPE html>

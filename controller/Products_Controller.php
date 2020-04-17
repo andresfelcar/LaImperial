@@ -37,7 +37,7 @@ class Products_Controller
             $sql = "SELECT IdProducto,Nombre,Precio,Cantidad from productos";
             return $conexion->query($sql);
         }
-        $sql = "SELECT Precio,Cantidad from productos WHERE IdProducto='$array'";
+        $sql = "SELECT Precio,Cantidad,Nombre,IdProducto from productos WHERE IdProducto='$array'";
         return $conexion->query($sql);
     }
 
@@ -64,10 +64,10 @@ class Products_Controller
     {
 
         $conexion = Conexion::connection();
-        $sql = "UPDATE productos SET Cantidad =(SELECT Cantidad + ?) WHERE idProducto=?";
+        $sql = "UPDATE productos SET Cantidad=?,Nombre=?,Precio=? WHERE idProducto=?";
         $stmt = $conexion->prepare($sql);
         // añadimos los parametros ("tipo de dato s= string, i= entero, d=double",$Variables en su lugar correspondiente con los ?)
-        $stmt->bind_param("ii", $array[1], $array[0]);
+        $stmt->bind_param("isdi", $array[3],$array[1],$array[2], $array[0]);
         //ejecutamos el stmt
         $stmt->execute();
 
@@ -77,5 +77,15 @@ class Products_Controller
 
     public function Delete($array)
     {
+        $conexion = Conexion::connection();
+        
+        $sql = "DELETE FROM productos WHERE IdProducto=? ";
+
+        $stmt = $conexion->prepare($sql);
+
+        $stmt->bind_param("i",$array[0]);
+        
+        $stmt->execute();
+
     }
 }
